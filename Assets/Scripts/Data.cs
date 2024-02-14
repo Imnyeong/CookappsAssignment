@@ -8,6 +8,7 @@ public enum UnitState
 {
     Idle,
     Move,
+    Attack,
     Death
 }
 public enum Elemental

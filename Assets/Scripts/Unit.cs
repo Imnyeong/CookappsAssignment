@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    [Header("À¯´Ö Á¤º¸")]
+    [Header("Unit Information")]
     [SerializeField] private UnitState unitState;
     [SerializeField] private UnitType unitType;
     [SerializeField] private Elemental elemental;
     [SerializeField] private Profession profession;
 
-    [Header("½ºÅ³")]
+    [Header("Skill")]
     [SerializeField] private Skill skill;
 
-    [Header("À¯´Ö ´É·ÂÄ¡")]
+    [Header("Unit Status")]
     [SerializeField] private int level;
     [SerializeField] private int hp;
     [SerializeField] private int attackPoint;
-    [SerializeField] private float moveSpeed = 0.01f;
-    [SerializeField] private int AttackRange;
+    [SerializeField] private float moveSpeed = 0.1f;
+    [SerializeField] private float attackRange;
 
-    [Header("ÇöÀç Å¸°Ù")]
+    [Header("Target")]
     [SerializeField] private Unit currentTarget = null;
     [SerializeField] private float targetTimer = 0.0f;
     [SerializeField] private float targetDelay = 0.3f;
@@ -38,22 +38,27 @@ public class Unit : MonoBehaviour
     #region Unity Life Cycle
     private void Update()
     {
+        TargetTimer();
+
+        if (currentTarget != null)
+        {
+            if ((this.transform.localPosition - currentTarget.transform.localPosition).sqrMagnitude > attackRange * 1000.0f)
+                DoMove();
+        }            
+    }
+    #endregion
+    public void TargetTimer()
+    {
         targetTimer += Time.deltaTime;
 
-        if(targetTimer >= targetDelay)
+        if (targetTimer >= targetDelay)
         {
             currentTarget = StageManager.Instance.ChangeTarget(this);
             targetTimer = 0.0f;
         }
-
-        //if (currentTarget != null)
-             //DoMove();
     }
-    #endregion
     public void DoMove()
     {
-        Vector2 vector = currentTarget.transform.localPosition - this.transform.position;
-        float distance = vector.sqrMagnitude;
-        this.transform.position += (Vector3)vector * moveSpeed * Time.deltaTime;
+        this.transform.position = Vector3.MoveTowards(this.transform.position, currentTarget.transform.position, moveSpeed);
     }
 }
