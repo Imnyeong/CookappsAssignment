@@ -17,30 +17,35 @@ public class Unit : MonoBehaviour
     [SerializeField] private int level;
     [SerializeField] private int hp;
     [SerializeField] private int attackPoint;
+    [SerializeField] private int moveSpeed = 10;
+    [SerializeField] private int AttackRange;
 
-    [Header("À¯´Ö Á¤º¸")]
-    [SerializeField] private Vector2 position;
+    [Header("ÇöÀç Å¸°Ù")]
     [SerializeField] private Unit currentTarget;
 
-    public Unit ChangeTarget(List<Unit> _targetList)
+    public UnitType GetUnitType()
     {
-        Unit target = null;
-        float minDistance = float.MaxValue;
+        return this.unitType;
+    }
+    public UnitState GetUnitState()
+    {
+        return this.unitState;
+    }
+    private void Start()
+    {
 
-        for(int i = 0; i < _targetList.Count; i++)
-        {
-            if(!_targetList[i].unitState.Equals(UnitState.Death))
-            {
-                float currentDistance = (this.transform.localPosition - _targetList[i].transform.localPosition).sqrMagnitude;
-                //Debug.Log(currentDistance.ToString());
-                if (minDistance >= currentDistance)
-                {
-                    minDistance = currentDistance;
-                    target = _targetList[i];
-                }
-            }
-        }
-        currentTarget = target;
-        return target;
+    }
+    private void Update()
+    {
+        if(this.unitState.Equals(UnitState.Death))
+            return;
+
+        currentTarget = StageManager.Instance.ChangeTarget(this);
+    }
+
+    public void DoMove()
+    {
+        Vector2 direction = (currentTarget.transform.localPosition - this.transform.position).normalized;
+        this.transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
     }
 }

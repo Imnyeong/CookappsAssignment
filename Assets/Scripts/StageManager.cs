@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
+    [Header("ΩÃ±€≈œ")]
+    public static StageManager Instance;
+
     [Header("¿Ø¥÷ ¡§∫∏")]
     [SerializeField] private List<Unit> characterList;
     [SerializeField] private List<Unit> enemyList;
@@ -13,27 +16,63 @@ public class StageManager : MonoBehaviour
 
     void Start()
     {
-        state = StageState.Ready;
-        StartStage();
+        Init();
     }
     void Update()
     {
 
     }
 
-    public void StartStage()
+    private void Init()
     {
-        //characterList.Clear();
-        //enemyList.Clear();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        state = StageState.Ready;
+    }
 
-        for(int i = 0; i < characterList.Count; i++)
+    public void SetStage(StageInfo _stageInfo)
+    {
+        enemyList.Clear();
+        enemyList = _stageInfo.enemyList;
+    }
+
+    public Unit ChangeTarget(Unit _unit)
+    {
+        Unit target = null;
+        float minDistance = float.MaxValue;
+
+        List<Unit> targetList = new List<Unit>();
+
+        switch (_unit.GetUnitType())
         {
-            characterList[i].ChangeTarget(enemyList);
+            case UnitType.Character:
+                targetList = enemyList;
+                break;
+            case UnitType.Enemy:
+                targetList = characterList;
+                break;
         }
-        for (int i = 0; i < enemyList.Count; i++)
+
+        if(targetList.Equals(null))
         {
-            enemyList[i].ChangeTarget(characterList);
+            return target;
         }
+
+        for(int i = 0; i < targetList.Count; i++)
+        {
+            if(!targetList[i].GetUnitState().Equals(UnitState.Death))
+            {
+                float currentDistance = (_unit.transform.localPosition - targetList[i].transform.localPosition).sqrMagnitude;
+                if (minDistance >= currentDistance)
+                {
+                    minDistance = currentDistance;
+                    target = targetList[i];
+                }
+            }
+        }
+        return target;
     }
 }
 

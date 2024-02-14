@@ -1,7 +1,6 @@
 #region 유닛 정보 관련
 public enum UnitType
 {
-
     Character,
     Enemy
 }
