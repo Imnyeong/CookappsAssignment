@@ -1,4 +1,4 @@
-#region 유닛 정보 관련
+#region Unit
 public enum UnitType
 {
     Character,
@@ -30,7 +30,7 @@ public enum SkillType
 }
 #endregion
 
-#region 스테이지 정보 관련
+#region Stage
 public enum StageState
 { 
     Ready,

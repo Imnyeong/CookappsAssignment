@@ -3,6 +3,6 @@ using UnityEngine;
 
 public class StageInfo : MonoBehaviour
 {
-    [Header("Àû Á¤º¸")]
+    [Header("Enemy Information")]
     public List<Unit> enemyList = new List<Unit>();
 }

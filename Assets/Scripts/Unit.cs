@@ -17,12 +17,15 @@ public class Unit : MonoBehaviour
     [SerializeField] private int level;
     [SerializeField] private int hp;
     [SerializeField] private int attackPoint;
-    [SerializeField] private int moveSpeed = 10;
+    [SerializeField] private float moveSpeed = 0.01f;
     [SerializeField] private int AttackRange;
 
     [Header("ÇöÀç Å¸°Ù")]
-    [SerializeField] private Unit currentTarget;
+    [SerializeField] private Unit currentTarget = null;
+    [SerializeField] private float targetTimer = 0.0f;
+    [SerializeField] private float targetDelay = 0.3f;
 
+    #region Get or Set
     public UnitType GetUnitType()
     {
         return this.unitType;
@@ -31,21 +34,26 @@ public class Unit : MonoBehaviour
     {
         return this.unitState;
     }
-    private void Start()
-    {
-
-    }
+    #endregion
+    #region Unity Life Cycle
     private void Update()
     {
-        if(this.unitState.Equals(UnitState.Death))
-            return;
+        targetTimer += Time.deltaTime;
 
-        currentTarget = StageManager.Instance.ChangeTarget(this);
+        if(targetTimer >= targetDelay)
+        {
+            currentTarget = StageManager.Instance.ChangeTarget(this);
+            targetTimer = 0.0f;
+        }
+
+        //if (currentTarget != null)
+             //DoMove();
     }
-
+    #endregion
     public void DoMove()
     {
-        Vector2 direction = (currentTarget.transform.localPosition - this.transform.position).normalized;
-        this.transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
+        Vector2 vector = currentTarget.transform.localPosition - this.transform.position;
+        float distance = vector.sqrMagnitude;
+        this.transform.position += (Vector3)vector * moveSpeed * Time.deltaTime;
     }
 }

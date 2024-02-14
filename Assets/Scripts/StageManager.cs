@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    [Header("싱글턴")]
+    [Header("Singleton")]
     public static StageManager Instance;
 
-    [Header("유닛 정보")]
+    [Header("Unit Information")]
     [SerializeField] private List<Unit> characterList;
     [SerializeField] private List<Unit> enemyList;
 
-    [Header("스테이지 정보")]
+    [Header("Stage Information")]
     [SerializeField] private StageState state = StageState.Ready;
 
+    #region Unity Life Cycle
     void Start()
     {
         Init();
     }
-    void Update()
-    {
-
-    }
-
+    #endregion
     private void Init()
     {
         if (Instance == null)
@@ -55,14 +52,14 @@ public class StageManager : MonoBehaviour
                 break;
         }
 
-        if(targetList.Equals(null))
+        if(targetList == null)
         {
             return target;
         }
 
         for(int i = 0; i < targetList.Count; i++)
         {
-            if(!targetList[i].GetUnitState().Equals(UnitState.Death))
+            if(targetList[i].GetUnitState() != UnitState.Death)
             {
                 float currentDistance = (_unit.transform.localPosition - targetList[i].transform.localPosition).sqrMagnitude;
                 if (minDistance >= currentDistance)
