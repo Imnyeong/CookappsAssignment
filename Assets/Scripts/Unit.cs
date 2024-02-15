@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
@@ -15,18 +16,22 @@ public class Unit : MonoBehaviour
 
     [Header("Unit Status")]
     [SerializeField] private int level;
-    [SerializeField] private int hp;
+    [SerializeField] private int maxHp;
+    [SerializeField] private int currentHp;
     [SerializeField] private int attackPoint;
     [SerializeField] private float moveSpeed = 0.1f;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackDelay;
 
-    private float attackTimer = 0.0f;
+    [Header("UI")]
+    [SerializeField] private Slider hpBar;
 
     [Header("Target")]
     [SerializeField] private Unit currentTarget = null;
-    private float targetTimer = 0.0f;
+
     private float targetDelay = 0.3f;
+    private float targetTimer = 0.0f;
+    private float attackTimer = 0.0f;
 
     #region Get or Set
     public UnitType GetUnitType()
@@ -44,6 +49,11 @@ public class Unit : MonoBehaviour
     }
     #endregion
     #region Unity Life Cycle
+    private void Start()
+    {
+        currentHp = maxHp;
+        SetUnitState(UnitState.Idle);
+    }
     private void Update()
     {
         if (unitState == UnitState.Death)
@@ -108,8 +118,9 @@ public class Unit : MonoBehaviour
 
     public void GetDamaged(Unit _target)
     {
-        _target.hp -= this.attackPoint;
-        if(_target.hp <= 0)
+        _target.currentHp -= this.attackPoint;
+        _target.hpBar.value = (float)_target.currentHp / (float)_target.maxHp;
+        if (_target.currentHp <= 0)
         {
             _target.SetUnitState(UnitState.Death);
         }
