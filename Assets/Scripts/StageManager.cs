@@ -15,7 +15,8 @@ public class StageManager : MonoBehaviour
 
     [Header("Stage Information")]
     [SerializeField] private StageState stageState = StageState.Ready;
-    [SerializeField] private DateTime limitTime;
+    [SerializeField] private float limitTime;
+    [SerializeField] private Text textTime;
 
     [Header("UI")]
     [SerializeField] private Slider charactersHpBar;
@@ -27,12 +28,34 @@ public class StageManager : MonoBehaviour
     private float enemysMaxHp;
     private float enemysCurrentHp;
 
-    #region Unity Life Cycle
-    void Start()
+    #region Get or Set
+    public StageState GetStageState()
     {
-        Init();
+        return stageState;
     }
     #endregion
+    #region Unity Life Cycle
+    private void Start()
+    {
+        stageState = StageState.Ready;
+        Init();
+        textTime.text = limitTime.ToString();
+    }
+    private void Update()
+    {
+        if(stageState == StageState.Play)
+        CheckTime();
+    }
+    #endregion
+    private void CheckTime()
+    {
+        limitTime -= Time.deltaTime;
+        textTime.text = ((int)limitTime).ToString();
+        if(limitTime <= 0)
+        {
+            SetStageState(StageState.Defeat);
+        }
+    }
     private void Init()
     {
         if (Instance == null)
@@ -40,9 +63,7 @@ public class StageManager : MonoBehaviour
             Instance = this;
         }
 
-        stageState = StageState.Ready;
-
-        for(int i = 0; i < characterList.Count; i++ )
+        for (int i = 0; i < characterList.Count; i++ )
         {
             charactersMaxHp += characterList[i].GetMaxHp();
         }
@@ -53,14 +74,14 @@ public class StageManager : MonoBehaviour
             enemysMaxHp += enemyList[i].GetMaxHp();
         }
         enemysCurrentHp = enemysMaxHp;
-    }
 
+        stageState = StageState.Play;
+    }
     public void SetStage(StageInfo _stageInfo)
     {
         enemyList.Clear();
         enemyList = _stageInfo.enemyList;
     }
-
     public Unit ChangeTarget(Unit _unit)
     {
         Unit target = null;
@@ -97,7 +118,6 @@ public class StageManager : MonoBehaviour
         }
         return target;
     }
-
     public void CheckTeamHP(Unit _target, int _damage)
     {
         switch (_target.GetUnitType())

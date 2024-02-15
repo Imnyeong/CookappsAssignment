@@ -60,6 +60,8 @@ public class Unit : MonoBehaviour
     }
     private void Update()
     {
+        if (StageManager.Instance.GetStageState() != StageState.Play)
+            return;
         if (unitState == UnitState.Death)
             return;
 
