@@ -54,6 +54,10 @@ public class Unit : MonoBehaviour
     {
         return this.currentHp;
     }
+    public Sprite GetThumbnail()
+    {
+        return thumbnail;
+    }
     public void SetUnitState(UnitState _state)
     {
         if (unitState == _state)
@@ -173,7 +177,7 @@ public class Unit : MonoBehaviour
 
         _target.currentHp -= currentDamage;
         _target.hpBar.value = _target.currentHp <= 0.0f ? 0.0f : _target.currentHp / _target.maxHp;
-        Debug.Log($"{this.name} 가 {_target.name}을 때려서 남은 체력 {_target.currentHp}");
+        //Debug.Log($"{this.name} 가 {_target.name}을 때려서 남은 체력 {_target.currentHp}");
         if (_target.currentHp <= 0)
         {
             _target.SetUnitState(UnitState.Death);
@@ -183,14 +187,16 @@ public class Unit : MonoBehaviour
     }
     public void GetDamaged(Unit _target, float _skillValue)
     {
-        _target.currentHp -= _skillValue;
+        float currentDamage = _target.currentHp < _skillValue ? _target.currentHp : _skillValue;
+
+        _target.currentHp -= currentDamage;
         _target.hpBar.value = _target.currentHp <= 0.0f ? 0.0f : _target.currentHp / _target.maxHp;
         if (_target.currentHp <= 0)
         {
             _target.SetUnitState(UnitState.Death);
             this.SetUnitState(UnitState.Idle);
         }
-        StageManager.Instance.CheckTeamHP(_target, _skillValue);
+        StageManager.Instance.CheckTeamHP(_target, currentDamage);
     }
     #endregion
     #region Animation

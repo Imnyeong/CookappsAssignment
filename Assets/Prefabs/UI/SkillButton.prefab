@@ -10,16 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 8751924775374046687}
   - component: {fileID: 6509028280057126631}
-  - component: {fileID: 4965042634445653240}
-  - component: {fileID: 6599992747287313643}
-  - component: {fileID: 2676603001343131002}
+  - component: {fileID: 5394881764463398705}
+  - component: {fileID: 8175156573316011693}
   m_Layer: 5
   m_Name: SkillButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8751924775374046687
 RectTransform:
   m_ObjectHideFlags: 0
@@ -50,7 +49,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468684466332799612}
   m_CullTransparentMesh: 1
---- !u!114 &4965042634445653240
+--- !u!114 &5394881764463398705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,7 +79,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6599992747287313643
+--- !u!114 &8175156573316011693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,7 +88,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 468684466332799612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cd863624e9d7844aaa3f1dfed3fc6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -120,25 +119,11 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 4965042634445653240}
+  m_TargetGraphic: {fileID: 5394881764463398705}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2676603001343131002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468684466332799612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 2, y: 2}
-  m_UseGraphicAlpha: 1
+  spriteRenderer: {fileID: 6974196042601331728}
 --- !u!1 &2059241366788031538
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +135,7 @@ GameObject:
   - component: {fileID: 8087784682016405194}
   - component: {fileID: 6974196042601331728}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,8 +199,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -570851543
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -7008412969330441016, guid: 2f951e0110ae4597a5d8d5d6d54528e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
