@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageManager : MonoBehaviour
 {
@@ -12,7 +14,18 @@ public class StageManager : MonoBehaviour
     [SerializeField] private List<Unit> enemyList;
 
     [Header("Stage Information")]
-    [SerializeField] private StageState state = StageState.Ready;
+    [SerializeField] private StageState stageState = StageState.Ready;
+    [SerializeField] private DateTime limitTime;
+
+    [Header("UI")]
+    [SerializeField] private Slider charactersHpBar;
+    [SerializeField] private Slider enemysHpBar;
+
+    private float charactersMaxHp;
+    private float charactersCurrentHp;
+
+    private float enemysMaxHp;
+    private float enemysCurrentHp;
 
     #region Unity Life Cycle
     void Start()
@@ -26,7 +39,20 @@ public class StageManager : MonoBehaviour
         {
             Instance = this;
         }
-        state = StageState.Ready;
+
+        stageState = StageState.Ready;
+
+        for(int i = 0; i < characterList.Count; i++ )
+        {
+            charactersMaxHp += characterList[i].GetMaxHp();
+        }
+        charactersCurrentHp = charactersMaxHp;
+
+        for (int i = 0; i < enemyList.Count; i++)
+        {
+            enemysMaxHp += enemyList[i].GetMaxHp();
+        }
+        enemysCurrentHp = enemysMaxHp;
     }
 
     public void SetStage(StageInfo _stageInfo)
@@ -72,9 +98,49 @@ public class StageManager : MonoBehaviour
         return target;
     }
 
-    public void CheckStageState()
+    public void CheckTeamHP(Unit _target, int _damage)
     {
-        //if()
+        switch (_target.GetUnitType())
+        {
+            case UnitType.Character:
+                {
+                    charactersCurrentHp -= _damage;
+                    charactersHpBar.value = charactersCurrentHp / charactersMaxHp;
+                    if(charactersCurrentHp <= 0)
+                    {
+                        SetStageState(StageState.Defeat);
+                    }
+                    break;
+                }
+            case UnitType.Enemy:
+                {
+                    enemysCurrentHp -= _damage;
+                    enemysHpBar.value = enemysCurrentHp / enemysMaxHp;
+                    if (enemysCurrentHp <= 0)
+                    {
+                        SetStageState(StageState.Clear);
+                    }
+                    break;
+                }
+        }
+    }
+    public void SetStageState(StageState _stageState)
+    {
+        switch(_stageState)
+        {
+            case StageState.Clear:
+                {
+                    stageState = StageState.Clear;
+                    Debug.Log("Clear");
+                    break;
+                }
+            case StageState.Defeat:
+                {
+                    stageState = StageState.Defeat;
+                    Debug.Log("Defeat");
+                    break;
+                }
+        }
     }
 }
 

@@ -16,8 +16,8 @@ public class Unit : MonoBehaviour
 
     [Header("Unit Status")]
     [SerializeField] private int level;
-    [SerializeField] private int maxHp;
-    [SerializeField] private int currentHp;
+    [SerializeField] private float maxHp;
+    [SerializeField] private float currentHp;
     [SerializeField] private int attackPoint;
     [SerializeField] private float moveSpeed = 0.1f;
     [SerializeField] private float attackRange;
@@ -42,6 +42,10 @@ public class Unit : MonoBehaviour
     {
         return this.unitState;
     }
+    public float GetMaxHp()
+    {
+        return this.maxHp;
+    }
     public void SetUnitState(UnitState _state)
     {
         if (unitState != _state)
@@ -63,12 +67,10 @@ public class Unit : MonoBehaviour
         {
             if(CheckRange())
             {
-                SetUnitState(UnitState.Attack);
                 AttackTimer();
             }
             else
             {
-                SetUnitState(UnitState.Move);
                 DoMove();
             }
         }
@@ -104,25 +106,29 @@ public class Unit : MonoBehaviour
     #region DoAction
     public void DoMove()
     {
+        SetUnitState(UnitState.Move);
         this.transform.position = Vector3.MoveTowards(this.transform.position, currentTarget.transform.position, moveSpeed);
     }
     public void DoAttack(Unit _target)
     {
+        SetUnitState(UnitState.Attack);
         GetDamaged(_target);
     }
     #endregion
+    #region Interaction
     public bool CheckRange()
     {
         return (this.transform.localPosition - currentTarget.transform.localPosition).sqrMagnitude < attackRange;
     }
-
     public void GetDamaged(Unit _target)
     {
         _target.currentHp -= this.attackPoint;
-        _target.hpBar.value = (float)_target.currentHp / (float)_target.maxHp;
+        _target.hpBar.value = _target.currentHp / _target.maxHp;
+        StageManager.Instance.CheckTeamHP(_target, this.attackPoint);
         if (_target.currentHp <= 0)
         {
             _target.SetUnitState(UnitState.Death);
         }
     }
+    #endregion
 }

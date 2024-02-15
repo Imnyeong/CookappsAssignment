@@ -36,6 +36,7 @@ public enum StageState
 { 
     Ready,
     Play,
-    Clear
+    Clear,
+    Defeat
 }
 #endregion
