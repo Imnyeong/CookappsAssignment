@@ -118,7 +118,7 @@ public class StageManager : MonoBehaviour
         }
         return target;
     }
-    public void CheckTeamHP(Unit _target, int _damage)
+    public void CheckTeamHP(Unit _target, float _damage)
     {
         switch (_target.GetUnitType())
         {
@@ -161,6 +161,40 @@ public class StageManager : MonoBehaviour
                     break;
                 }
         }
+    }
+    public Unit FindLowHP(UnitType _unitType)
+    {
+        Unit target = null;
+        switch (_unitType)
+        {
+            case UnitType.Character:
+                {
+                    float defaultHp = characterList[0].GetCurrentHp();
+
+                    for (int i = 0; i < characterList.Count; i++)
+                    {
+                        if(characterList[i].GetCurrentHp() < defaultHp)
+                        {
+                            target = characterList[i];
+                        }
+                    }
+                    break;
+                }
+            case UnitType.Enemy:
+                {
+                    float defaultHp = enemyList[0].GetCurrentHp();
+
+                    for (int i = 0; i < enemyList.Count; i++)
+                    {
+                        if (enemyList[i].GetCurrentHp() < defaultHp)
+                        {
+                            target = enemyList[i];
+                        }
+                    }
+                    break;
+                }
+        }
+        return target;
     }
 }
 

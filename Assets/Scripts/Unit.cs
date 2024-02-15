@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private int level;
     [SerializeField] private float maxHp;
     [SerializeField] private float currentHp;
-    [SerializeField] private int attackPoint;
+    [SerializeField] private float attackPoint;
     [SerializeField] private float moveSpeed = 0.1f;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackDelay;
@@ -45,6 +45,10 @@ public class Unit : MonoBehaviour
     public float GetMaxHp()
     {
         return this.maxHp;
+    }
+    public float GetCurrentHp()
+    {
+        return this.currentHp;
     }
     public void SetUnitState(UnitState _state)
     {
@@ -100,7 +104,7 @@ public class Unit : MonoBehaviour
 
         if (attackTimer >= attackDelay)
         {
-            DoAttack(currentTarget);
+            DoAttack();
             attackTimer = 0.0f;
         }
     }
@@ -111,10 +115,44 @@ public class Unit : MonoBehaviour
         SetUnitState(UnitState.Move);
         this.transform.position = Vector3.MoveTowards(this.transform.position, currentTarget.transform.position, moveSpeed);
     }
-    public void DoAttack(Unit _target)
+    public void DoAttack()
     {
         SetUnitState(UnitState.Attack);
-        GetDamaged(_target);
+        GetDamaged(currentTarget);
+    }
+    public void DoHeal(Unit _target, float _skillValue)
+    {
+        if (_target.GetUnitState() == UnitState.Death)
+            return;
+    
+        _target.currentHp += _skillValue;
+        _target.hpBar.value = _target.currentHp / _target.maxHp;
+        StageManager.Instance.CheckTeamHP(_target, _skillValue * -1.0f);
+    }
+    public void DoSkill()
+    {
+        if (unitState != UnitState.Attack)
+            return;
+
+        switch (this.skill.skillType)
+        {
+            case SkillType.Attack:
+                {
+                    GetDamaged(currentTarget, this.skill.value);
+                    break;
+                }
+            case SkillType.Heal:
+                {
+                    //GetDamaged(StageManager.Instance.FindLowHP(this.unitType), this.skill.value * -1.0f);
+                    DoHeal(StageManager.Instance.FindLowHP(this.unitType), this.skill.value);
+                    break;
+                }
+            case SkillType.Special:
+                {
+                    break;
+                }
+        }
+        attackTimer = 0.0f;
     }
     #endregion
     #region Interaction
@@ -127,6 +165,16 @@ public class Unit : MonoBehaviour
         _target.currentHp -= this.attackPoint;
         _target.hpBar.value = _target.currentHp / _target.maxHp;
         StageManager.Instance.CheckTeamHP(_target, this.attackPoint);
+        if (_target.currentHp <= 0)
+        {
+            _target.SetUnitState(UnitState.Death);
+        }
+    }
+    public void GetDamaged(Unit _target, float _skillValue)
+    {
+        _target.currentHp -= _skillValue;
+        _target.hpBar.value = _target.currentHp / _target.maxHp;
+        StageManager.Instance.CheckTeamHP(_target, _skillValue);
         if (_target.currentHp <= 0)
         {
             _target.SetUnitState(UnitState.Death);
