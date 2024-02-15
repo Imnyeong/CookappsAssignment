@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Unit : MonoBehaviour
 {
     [Header("Unit Information")]
+    [SerializeField] private Sprite thumbnail;
     [SerializeField] private UnitState unitState;
     [SerializeField] private UnitType unitType;
     [SerializeField] private Elemental elemental;

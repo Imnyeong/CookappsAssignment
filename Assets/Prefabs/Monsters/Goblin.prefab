@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09383bc6ffeb38341adf7fbcd17dc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thumbnail: {fileID: 4723107735738678597, guid: 8c8013b63c1e48b3bc93020529662be8, type: 3}
   unitState: 0
   unitType: 1
   elemental: 0

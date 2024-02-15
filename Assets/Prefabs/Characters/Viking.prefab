@@ -437,6 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09383bc6ffeb38341adf7fbcd17dc62a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thumbnail: {fileID: 5546671543968653177, guid: 8bbf92adb71a4713a5775ef3ceb58266, type: 3}
   unitState: 0
   unitType: 0
   elemental: 0
