@@ -71,6 +71,11 @@ public class StageManager : MonoBehaviour
         }
         return target;
     }
+
+    public void CheckStageState()
+    {
+        //if()
+    }
 }
 
 

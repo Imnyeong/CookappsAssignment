@@ -238,12 +238,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 49724250}
     m_Modifications:
     - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
+      propertyPath: hp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
       propertyPath: AttackRange
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
+      propertyPath: attackDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
+      propertyPath: attackPoint
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
       propertyPath: attackRange
-      value: 50
+      value: 50000
       objectReference: {fileID: 0}
     - target: {fileID: 5377421016359278520, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
       propertyPath: m_Pivot.x
@@ -363,12 +375,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 49724250}
     m_Modifications:
     - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
+      propertyPath: hp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
       propertyPath: AttackRange
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
+      propertyPath: attackDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
+      propertyPath: attackPoint
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
       propertyPath: attackRange
-      value: 500
+      value: 500000
       objectReference: {fileID: 0}
     - target: {fileID: 5377421016359278520, guid: 58dd015284259f640a23717cce2591af, type: 3}
       propertyPath: m_Pivot.x
@@ -492,12 +516,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 49724250}
     m_Modifications:
     - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
+      propertyPath: hp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
       propertyPath: AttackRange
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
+      propertyPath: attackDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
+      propertyPath: attackPoint
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
       propertyPath: attackRange
-      value: 150
+      value: 150000
       objectReference: {fileID: 0}
     - target: {fileID: 5377421016359278520, guid: 6af1e5db88cd077408cc66b7fa9019fc, type: 3}
       propertyPath: m_Pivot.x
@@ -621,12 +657,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 49724250}
     m_Modifications:
     - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
+      propertyPath: hp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
       propertyPath: AttackRange
       value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
+      propertyPath: attackDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
+      propertyPath: attackPoint
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
       propertyPath: attackRange
-      value: 300
+      value: 300000
       objectReference: {fileID: 0}
     - target: {fileID: 5377421016359278520, guid: 58dd015284259f640a23717cce2591af, type: 3}
       propertyPath: m_Pivot.x

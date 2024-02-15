@@ -19,11 +19,14 @@ public class Unit : MonoBehaviour
     [SerializeField] private int attackPoint;
     [SerializeField] private float moveSpeed = 0.1f;
     [SerializeField] private float attackRange;
+    [SerializeField] private float attackDelay;
+
+    private float attackTimer = 0.0f;
 
     [Header("Target")]
     [SerializeField] private Unit currentTarget = null;
-    [SerializeField] private float targetTimer = 0.0f;
-    [SerializeField] private float targetDelay = 0.3f;
+    private float targetTimer = 0.0f;
+    private float targetDelay = 0.3f;
 
     #region Get or Set
     public UnitType GetUnitType()
@@ -34,20 +37,39 @@ public class Unit : MonoBehaviour
     {
         return this.unitState;
     }
+    public void SetUnitState(UnitState _state)
+    {
+        if (unitState != _state)
+            unitState = _state;
+    }
     #endregion
     #region Unity Life Cycle
     private void Update()
     {
-        TargetTimer();
+        if (unitState == UnitState.Death)
+            return;
 
-        if (currentTarget != null)
+        if (TargetTimer() != null)
         {
-            if ((this.transform.localPosition - currentTarget.transform.localPosition).sqrMagnitude > attackRange * 1000.0f)
+            if(CheckRange())
+            {
+                SetUnitState(UnitState.Attack);
+                AttackTimer();
+            }
+            else
+            {
+                SetUnitState(UnitState.Move);
                 DoMove();
-        }            
+            }
+        }
+        else
+        {
+            SetUnitState(UnitState.Idle);
+        }
     }
     #endregion
-    public void TargetTimer()
+    #region Timer
+    public Unit TargetTimer()
     {
         targetTimer += Time.deltaTime;
 
@@ -56,9 +78,40 @@ public class Unit : MonoBehaviour
             currentTarget = StageManager.Instance.ChangeTarget(this);
             targetTimer = 0.0f;
         }
+        return currentTarget;
     }
+    public void AttackTimer()
+    {
+        attackTimer += Time.deltaTime;
+
+        if (attackTimer >= attackDelay)
+        {
+            DoAttack(currentTarget);
+            attackTimer = 0.0f;
+        }
+    }
+    #endregion
+    #region DoAction
     public void DoMove()
     {
         this.transform.position = Vector3.MoveTowards(this.transform.position, currentTarget.transform.position, moveSpeed);
+    }
+    public void DoAttack(Unit _target)
+    {
+        GetDamaged(_target);
+    }
+    #endregion
+    public bool CheckRange()
+    {
+        return (this.transform.localPosition - currentTarget.transform.localPosition).sqrMagnitude < attackRange;
+    }
+
+    public void GetDamaged(Unit _target)
+    {
+        _target.hp -= this.attackPoint;
+        if(_target.hp <= 0)
+        {
+            _target.SetUnitState(UnitState.Death);
+        }
     }
 }
