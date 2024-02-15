@@ -29,6 +29,9 @@ public class Unit : MonoBehaviour
     [Header("Target")]
     [SerializeField] private Unit currentTarget = null;
 
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+
     private float targetDelay = 0.3f;
     private float targetTimer = 0.0f;
     private float attackTimer = 0.0f;
@@ -52,8 +55,11 @@ public class Unit : MonoBehaviour
     }
     public void SetUnitState(UnitState _state)
     {
-        if (unitState != _state)
-            unitState = _state;
+        if (unitState == _state)
+            return;
+
+        unitState = _state;
+        CheckAnimation(_state);
     }
     #endregion
     #region Unity Life Cycle
@@ -100,6 +106,7 @@ public class Unit : MonoBehaviour
     }
     public void AttackTimer()
     {
+        SetUnitState(UnitState.Attack);
         attackTimer += Time.deltaTime;
 
         if (attackTimer >= attackDelay)
@@ -117,7 +124,6 @@ public class Unit : MonoBehaviour
     }
     public void DoAttack()
     {
-        SetUnitState(UnitState.Attack);
         GetDamaged(currentTarget);
     }
     public void DoHeal(Unit _target, float _skillValue)
@@ -168,6 +174,7 @@ public class Unit : MonoBehaviour
         if (_target.currentHp <= 0)
         {
             _target.SetUnitState(UnitState.Death);
+            this.SetUnitState(UnitState.Idle);
         }
     }
     public void GetDamaged(Unit _target, float _skillValue)
@@ -178,6 +185,35 @@ public class Unit : MonoBehaviour
         if (_target.currentHp <= 0)
         {
             _target.SetUnitState(UnitState.Death);
+            this.SetUnitState(UnitState.Idle);
+        }
+    }
+    #endregion
+    #region Animation
+    public void CheckAnimation(UnitState _unitState)
+    {
+        switch (_unitState)
+        {
+            case UnitState.Idle:
+                {
+                    animator.SetTrigger("Idle");
+                    break;
+                }
+            case UnitState.Move:
+                {
+                    animator.SetTrigger("Move");
+                    break;
+                }
+            case UnitState.Attack:
+                {
+                    animator.SetTrigger("Attack");
+                    break;
+                }
+            case UnitState.Death:
+                {
+                    animator.SetTrigger("Death");
+                    break;
+                }
         }
     }
     #endregion
