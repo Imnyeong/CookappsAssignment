@@ -30,7 +30,6 @@ public enum SkillType
     Special
 }
 #endregion
-
 #region Stage
 public enum StageState
 { 

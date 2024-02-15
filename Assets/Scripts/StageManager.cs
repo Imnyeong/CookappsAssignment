@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +11,8 @@ public class StageManager : MonoBehaviour
     public static StageManager Instance;
 
     [Header("Unit Information")]
-    [SerializeField] private List<Unit> characterList;
-    [SerializeField] private List<Unit> enemyList;
+    [SerializeField] private Unit[] characterArray;
+    [SerializeField] private Unit[] enemyArray;
 
     [Header("Stage Information")]
     [SerializeField] private StageState stageState = StageState.Ready;
@@ -62,16 +63,15 @@ public class StageManager : MonoBehaviour
         {
             Instance = this;
         }
-
-        for (int i = 0; i < characterList.Count; i++ )
+        for (int i = 0; i < characterArray.Length; i++ )
         {
-            charactersMaxHp += characterList[i].GetMaxHp();
+            charactersMaxHp += characterArray[i].GetMaxHp();
         }
         charactersCurrentHp = charactersMaxHp;
 
-        for (int i = 0; i < enemyList.Count; i++)
+        for (int i = 0; i < enemyArray.Length; i++)
         {
-            enemysMaxHp += enemyList[i].GetMaxHp();
+            enemysMaxHp += enemyArray[i].GetMaxHp();
         }
         enemysCurrentHp = enemysMaxHp;
 
@@ -79,42 +79,48 @@ public class StageManager : MonoBehaviour
     }
     public void SetStage(StageInfo _stageInfo)
     {
-        enemyList.Clear();
-        enemyList = _stageInfo.enemyList;
+        //enemyList.Clear();
+        //enemyList = _stageInfo.enemyList;
     }
     public Unit ChangeTarget(Unit _unit)
     {
         Unit target = null;
         float minDistance = float.MaxValue;
 
-        List<Unit> targetList = new List<Unit>();
-
         switch (_unit.GetUnitType())
         {
             case UnitType.Character:
-                targetList = enemyList;
-                break;
-            case UnitType.Enemy:
-                targetList = characterList;
-                break;
-        }
-
-        if(targetList == null)
-        {
-            return target;
-        }
-
-        for(int i = 0; i < targetList.Count; i++)
-        {
-            if(targetList[i].GetUnitState() != UnitState.Death)
-            {
-                float currentDistance = (_unit.transform.localPosition - targetList[i].transform.localPosition).sqrMagnitude;
-                if (minDistance >= currentDistance)
                 {
-                    minDistance = currentDistance;
-                    target = targetList[i];
+                    for (int i = 0; i < enemyArray.Length; i++)
+                    {
+                        if (enemyArray[i].GetUnitState() != UnitState.Death)
+                        {
+                            float currentDistance = (_unit.transform.localPosition - enemyArray[i].transform.localPosition).sqrMagnitude;
+                            if (minDistance >= currentDistance)
+                            {
+                                minDistance = currentDistance;
+                                target = enemyArray[i];
+                            }
+                        }
+                    }
+                    break;
                 }
-            }
+            case UnitType.Enemy:
+                {
+                    for (int i = 0; i < characterArray.Length; i++)
+                    {
+                        if (characterArray[i].GetUnitState() != UnitState.Death)
+                        {
+                            float currentDistance = (_unit.transform.localPosition - characterArray[i].transform.localPosition).sqrMagnitude;
+                            if (minDistance >= currentDistance)
+                            {
+                                minDistance = currentDistance;
+                                target = characterArray[i];
+                            }
+                        }
+                    }
+                    break;
+                }
         }
         return target;
     }
@@ -125,7 +131,8 @@ public class StageManager : MonoBehaviour
             case UnitType.Character:
                 {
                     charactersCurrentHp -= _damage;
-                    charactersHpBar.value = charactersCurrentHp / charactersMaxHp;
+                    Debug.Log($"유저 팀 남은 체력 {charactersCurrentHp}");
+                    charactersHpBar.value = charactersCurrentHp <= 0.0f ? 0.0f : charactersCurrentHp / charactersMaxHp;
                     if(charactersCurrentHp <= 0)
                     {
                         SetStageState(StageState.Defeat);
@@ -135,7 +142,8 @@ public class StageManager : MonoBehaviour
             case UnitType.Enemy:
                 {
                     enemysCurrentHp -= _damage;
-                    enemysHpBar.value = enemysCurrentHp / enemysMaxHp;
+                    Debug.Log($"상대 팀 남은 체력 {enemysCurrentHp}");
+                    enemysHpBar.value = enemysCurrentHp <= 0.0f ? 0.0f : enemysCurrentHp / enemysMaxHp;
                     if (enemysCurrentHp <= 0)
                     {
                         SetStageState(StageState.Clear);
@@ -169,26 +177,26 @@ public class StageManager : MonoBehaviour
         {
             case UnitType.Character:
                 {
-                    float defaultHp = characterList[0].GetCurrentHp();
+                    float defaultHp = characterArray[0].GetCurrentHp();
 
-                    for (int i = 0; i < characterList.Count; i++)
+                    for (int i = 0; i < characterArray.Length; i++)
                     {
-                        if(characterList[i].GetCurrentHp() < defaultHp)
+                        if(characterArray[i].GetCurrentHp() < defaultHp)
                         {
-                            target = characterList[i];
+                            target = characterArray[i];
                         }
                     }
                     break;
                 }
             case UnitType.Enemy:
                 {
-                    float defaultHp = enemyList[0].GetCurrentHp();
+                    float defaultHp = enemyArray[0].GetCurrentHp();
 
-                    for (int i = 0; i < enemyList.Count; i++)
+                    for (int i = 0; i < enemyArray.Length; i++)
                     {
-                        if (enemyList[i].GetCurrentHp() < defaultHp)
+                        if (enemyArray[i].GetCurrentHp() < defaultHp)
                         {
-                            target = enemyList[i];
+                            target = enemyArray[i];
                         }
                     }
                     break;

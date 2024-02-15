@@ -4,5 +4,6 @@ using UnityEngine;
 public class StageInfo : MonoBehaviour
 {
     [Header("Enemy Information")]
-    public List<Unit> enemyList = new List<Unit>();
+    public Unit[] characterArray = new Unit[9];
+    public Unit[] enemyArray = new Unit[9];
 }

@@ -169,30 +169,34 @@ public class Unit : MonoBehaviour
     }
     public void GetDamaged(Unit _target)
     {
-        _target.currentHp -= this.attackPoint;
-        _target.hpBar.value = _target.currentHp / _target.maxHp;
-        StageManager.Instance.CheckTeamHP(_target, this.attackPoint);
+        float currentDamage = _target.currentHp < this.attackPoint ? _target.currentHp : this.attackPoint;
+
+        _target.currentHp -= currentDamage;
+        _target.hpBar.value = _target.currentHp <= 0.0f ? 0.0f : _target.currentHp / _target.maxHp;
+        Debug.Log($"{this.name} 가 {_target.name}을 때려서 남은 체력 {_target.currentHp}");
         if (_target.currentHp <= 0)
         {
             _target.SetUnitState(UnitState.Death);
             this.SetUnitState(UnitState.Idle);
         }
+        StageManager.Instance.CheckTeamHP(_target, currentDamage);
     }
     public void GetDamaged(Unit _target, float _skillValue)
     {
         _target.currentHp -= _skillValue;
-        _target.hpBar.value = _target.currentHp / _target.maxHp;
-        StageManager.Instance.CheckTeamHP(_target, _skillValue);
+        _target.hpBar.value = _target.currentHp <= 0.0f ? 0.0f : _target.currentHp / _target.maxHp;
         if (_target.currentHp <= 0)
         {
             _target.SetUnitState(UnitState.Death);
             this.SetUnitState(UnitState.Idle);
         }
+        StageManager.Instance.CheckTeamHP(_target, _skillValue);
     }
     #endregion
     #region Animation
     public void CheckAnimation(UnitState _unitState)
     {
+        Debug.Log($"{this.name}의 상태를  {_unitState}로 변경");
         switch (_unitState)
         {
             case UnitState.Idle:
