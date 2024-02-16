@@ -29,6 +29,7 @@ public class StageManager : MonoBehaviour
 
     private float enemysMaxHp;
     private float enemysCurrentHp;
+    private float oneSec = 1.0f;
 
     #region Get or Set
     public StageState GetStageState()
@@ -44,33 +45,14 @@ public class StageManager : MonoBehaviour
             Instance = this;
         }
         stageState = StageState.Ready;
-        //Init();
-    }
-    private void Update()
-    {
-        if(stageState == StageState.Play)
-        CheckTime();
     }
     #endregion
-    private void CheckTime()
-    {
-        limitTime -= Time.deltaTime;
-        textTime.text = ((int)limitTime).ToString();
-        if(limitTime <= 0)
-        {
-            SetStageState(StageState.Defeat);
-        }
-    }
-    private void Init()
-    {
-        textTime.text = limitTime.ToString();
-        stageState = StageState.Play;
-    }
+    #region Stage
     public void SetStage(int _index)
     {
-        for(int i = 0; i < DataBase.Instance.characterArray.Length; i++)
+        for (int i = 0; i < DataBase.Instance.characterArray.Length; i++)
         {
-            if(DataBase.Instance.characterArray[i] != null)
+            if (DataBase.Instance.characterArray[i] != null)
             {
                 characterArray[i].SetUnitInfo(DataBase.Instance.characterArray[i]);
                 characterArray[i].gameObject.SetActive(true);
@@ -80,7 +62,7 @@ public class StageManager : MonoBehaviour
         }
         charactersCurrentHp = charactersMaxHp;
 
-        for(int i = 0; i < DataBase.Instance.stageInfoArray[_index].enemyArray.Length; i++)
+        for (int i = 0; i < DataBase.Instance.stageInfoArray[_index].enemyArray.Length; i++)
         {
             if (DataBase.Instance.stageInfoArray[_index].enemyArray[i] != null)
             {
@@ -94,48 +76,27 @@ public class StageManager : MonoBehaviour
         limitTime = DataBase.Instance.stageInfoArray[_index].limitTime;
         Init();
     }
-
-    public Unit ChangeTarget(Unit _unit)
+    private void Init()
     {
-        Unit target = null;
-        float minDistance = float.MaxValue;
+        textTime.text = limitTime.ToString();
+        stageState = StageState.Play;
+        StartCoroutine(StageTimer());
+    }
+    private IEnumerator StageTimer()
+    {
+        if (stageState != StageState.Play)
+            StopCoroutine(StageTimer());
 
-        switch (_unit.GetUnitType())
+        limitTime -= oneSec;
+        textTime.text = ((int)limitTime).ToString();
+
+        if (limitTime <= 0)
         {
-            case UnitType.Character:
-                {
-                    for (int i = 0; i < enemyArray.Length; i++)
-                    {
-                        if (enemyArray[i].gameObject.activeSelf && enemyArray[i].GetUnitState() != UnitState.Death)
-                        {
-                            float currentDistance = (_unit.transform.localPosition - enemyArray[i].transform.localPosition).sqrMagnitude;
-                            if (minDistance >= currentDistance)
-                            {
-                                minDistance = currentDistance;
-                                target = enemyArray[i];
-                            }
-                        }                       
-                    }
-                    break;
-                }
-            case UnitType.Enemy:
-                {
-                    for (int i = 0; i < characterArray.Length; i++)
-                    {
-                        if(characterArray[i].gameObject.activeSelf && characterArray[i].GetUnitState() != UnitState.Death)
-                        {
-                            float currentDistance = (_unit.transform.localPosition - characterArray[i].transform.localPosition).sqrMagnitude;
-                            if (minDistance >= currentDistance)
-                            {
-                                minDistance = currentDistance;
-                                target = characterArray[i];
-                            }
-                        }
-                    }
-                    break;
-                }
+            SetStageState(StageState.Defeat);
+            StopCoroutine(StageTimer());
         }
-        return target;
+        yield return new WaitForSecondsRealtime(oneSec);
+        StartCoroutine(StageTimer());
     }
     public void CheckTeamHP(Unit _target, float _damage)
     {
@@ -183,6 +144,50 @@ public class StageManager : MonoBehaviour
                 }
         }
     }
+    #endregion
+    #region Unit
+    public Unit ChangeTarget(Unit _unit)
+    {
+        Unit target = null;
+        float minDistance = float.MaxValue;
+
+        switch (_unit.GetUnitType())
+        {
+            case UnitType.Character:
+                {
+                    for (int i = 0; i < enemyArray.Length; i++)
+                    {
+                        if (enemyArray[i].gameObject.activeSelf && enemyArray[i].GetUnitState() != UnitState.Death)
+                        {
+                            float currentDistance = (_unit.transform.localPosition - enemyArray[i].transform.localPosition).sqrMagnitude;
+                            if (minDistance >= currentDistance)
+                            {
+                                minDistance = currentDistance;
+                                target = enemyArray[i];
+                            }
+                        }
+                    }
+                    break;
+                }
+            case UnitType.Enemy:
+                {
+                    for (int i = 0; i < characterArray.Length; i++)
+                    {
+                        if (characterArray[i].gameObject.activeSelf && characterArray[i].GetUnitState() != UnitState.Death)
+                        {
+                            float currentDistance = (_unit.transform.localPosition - characterArray[i].transform.localPosition).sqrMagnitude;
+                            if (minDistance >= currentDistance)
+                            {
+                                minDistance = currentDistance;
+                                target = characterArray[i];
+                            }
+                        }
+                    }
+                    break;
+                }
+        }
+        return target;
+    }
     public Unit FindLowHP(UnitType _unitType)
     {
         Unit target = null;
@@ -194,7 +199,7 @@ public class StageManager : MonoBehaviour
                 {
                     for (int i = 0; i < characterArray.Length; i++)
                     {
-                        if(characterArray[i].gameObject.activeSelf && characterArray[i].GetUnitState() != UnitState.Death)
+                        if (characterArray[i].gameObject.activeSelf && characterArray[i].GetUnitState() != UnitState.Death)
                         {
                             if (characterArray[i].GetCurrentHp() < minHp)
                             {
@@ -209,7 +214,7 @@ public class StageManager : MonoBehaviour
                 {
                     for (int i = 0; i < enemyArray.Length; i++)
                     {
-                        if(enemyArray[i].gameObject.activeSelf && enemyArray[i].GetUnitState() != UnitState.Death)
+                        if (enemyArray[i].gameObject.activeSelf && enemyArray[i].GetUnitState() != UnitState.Death)
                         {
                             if (enemyArray[i].GetCurrentHp() < minHp)
                             {
@@ -223,6 +228,7 @@ public class StageManager : MonoBehaviour
         }
         return target;
     }
+    #endregion
 }
 
 

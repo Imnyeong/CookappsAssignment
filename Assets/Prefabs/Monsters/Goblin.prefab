@@ -408,11 +408,12 @@ MonoBehaviour:
   elemental: 0
   profession: 0
   skill: {fileID: 8366163739735580754, guid: 5173f4846c33f084c9037f67391fd1d1, type: 3}
+  skillLine: {fileID: 0}
   level: 0
   maxHp: 100
   currentHp: 0
   attackPoint: 10
-  moveSpeed: 0.1
+  moveSpeed: 2
   attackRange: 10000
   attackDelay: 1.5
   hpBar: {fileID: 3854008430251928547}

@@ -34,9 +34,9 @@ public class Unit : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator animator;
 
-    private float targetDelay = 0.3f;
-    private float targetTimer = 0.0f;
-    private float attackTimer = 0.0f;
+    private float targetDelay = 0.1f;
+    private float skillDelay = 0.5f;
+    private bool usingSkill = false;
 
     #region Get or Set
     public UnitType GetUnitType()
@@ -102,52 +102,72 @@ public class Unit : MonoBehaviour
     {
         currentHp = maxHp;
         SetUnitState(UnitState.Idle);
+        StartCoroutine(TargetTimer());
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        if (StageManager.Instance.GetStageState() != StageState.Play)
-            return;
-        if (unitState == UnitState.Death)
-            return;
-
-        if (TargetTimer() != null)
+        if (currentHp == 0.0f)
         {
-            if(CheckRange())
+            StopAllCoroutines();
+            SetUnitState(UnitState.Death);
+        }
+    }
+    #endregion
+    #region Timer
+    private IEnumerator TargetTimer()
+    {
+        if ((StageManager.Instance.GetStageState() != StageState.Play) || unitState == UnitState.Death)
+        {
+            StopAllCoroutines();
+        }
+
+        currentTarget = StageManager.Instance.ChangeTarget(this);
+        if (currentTarget != null)
+        {
+            if (CheckRange())
             {
                 SetUnitState(UnitState.Idle);
-                AttackTimer();
+                yield return StartCoroutine(AttackTimer());
             }
             else
             {
                 DoMove();
             }
+            yield return new WaitForSecondsRealtime(targetDelay);
+            StartCoroutine(TargetTimer());
         }
         else
         {
             SetUnitState(UnitState.Idle);
+            StopCoroutine(TargetTimer());
         }
     }
-    #endregion
-    #region Timer
-    public Unit TargetTimer()
+    public IEnumerator AttackTimer()
     {
-        targetTimer += Time.deltaTime;
-
-        if (targetTimer >= targetDelay)
+        DoAttack();
+        if (currentTarget.GetUnitState() != UnitState.Death)
         {
-            currentTarget = StageManager.Instance.ChangeTarget(this);
-            targetTimer = 0.0f;
+            yield return new WaitForSecondsRealtime(attackDelay);
         }
-        return currentTarget;
+        StopCoroutine(AttackTimer());
     }
-    public void AttackTimer()
+    public IEnumerator SkillTimer()
     {
-        attackTimer += Time.deltaTime;
-
-        if (attackTimer >= attackDelay)
+        if(usingSkill)
         {
-            DoAttack();
-            attackTimer = 0.0f;
+            StopCoroutine(SkillTimer());
+        }
+        else
+        {
+            usingSkill = true;
+            StopCoroutine(AttackTimer());
+            DoSkill();
+            if (currentTarget.GetUnitState() != UnitState.Death)
+            {
+                yield return new WaitForSecondsRealtime(skillDelay);
+            }
+            usingSkill = false;
+            StopCoroutine(SkillTimer());
         }
     }
     #endregion
@@ -180,9 +200,6 @@ public class Unit : MonoBehaviour
     }
     public void DoSkill()
     {
-        if (this.unitState != UnitState.Idle)
-            return;
-        
         SetUnitState(UnitState.Skill);
         StartCoroutine(SkillLine());
 
@@ -203,7 +220,6 @@ public class Unit : MonoBehaviour
                     break;
                 }
         }
-        attackTimer = 0.0f;
     }
     #endregion
     #region Interaction
@@ -218,11 +234,7 @@ public class Unit : MonoBehaviour
         _target.currentHp -= currentDamage;
         _target.hpBar.value = _target.currentHp <= 0.0f ? 0.0f : _target.currentHp / _target.maxHp;
         //Debug.Log($"{this.name} 가 {_target.name}을 때려서 남은 체력 {_target.currentHp}");
-        if (_target.currentHp <= 0)
-        {
-            _target.SetUnitState(UnitState.Death);
-            this.SetUnitState(UnitState.Idle);
-        }
+        
         StageManager.Instance.CheckTeamHP(_target, currentDamage);
     }
     public void GetDamaged(Unit _target, float _skillValue)
@@ -231,12 +243,13 @@ public class Unit : MonoBehaviour
 
         _target.currentHp -= currentDamage;
         _target.hpBar.value = _target.currentHp <= 0.0f ? 0.0f : _target.currentHp / _target.maxHp;
-        if (_target.currentHp <= 0)
-        {
-            _target.SetUnitState(UnitState.Death);
-            this.SetUnitState(UnitState.Idle);
-        }
+        
         StageManager.Instance.CheckTeamHP(_target, currentDamage);
+    }
+    public void OnClickSkill()
+    {
+        StartCoroutine(SkillTimer());
+        StartCoroutine(SkillLine());
     }
     #endregion
     #region Animation
