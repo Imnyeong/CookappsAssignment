@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private float maxHp;
     [SerializeField] private float currentHp;
     [SerializeField] private float attackPoint;
-    [SerializeField] private float moveSpeed = 0.1f;
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackDelay;
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1822876708103873251}
   - component: {fileID: 8366163739735580754}
   m_Layer: 5
-  m_Name: SkillSample 1
+  m_Name: SkillSpecial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4f7137ef2ae944f8a10775814b3958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillType: 1
-  value: 30
-  coolDown: 2
-  line: "\uC6B0\uD6A8"
+  skillType: 2
+  value: 0
+  coolDown: 5
+  line: "\uC0B4\uB824\uC904\uAC8C"

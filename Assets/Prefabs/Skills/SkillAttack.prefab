@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1822876708103873251}
   - component: {fileID: 8366163739735580754}
   m_Layer: 5
-  m_Name: SkillSample
+  m_Name: SkillAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

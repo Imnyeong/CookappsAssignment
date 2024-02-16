@@ -110,6 +110,7 @@ public class StageManager : MonoBehaviour
                     if(charactersCurrentHp <= 0)
                     {
                         SetStageState(StageState.Defeat);
+                        StopAllCoroutines();
                     }
                     break;
                 }
@@ -121,6 +122,7 @@ public class StageManager : MonoBehaviour
                     if (enemysCurrentHp <= 0)
                     {
                         SetStageState(StageState.Clear);
+                        StopAllCoroutines();
                     }
                     break;
                 }
@@ -230,5 +232,3 @@ public class StageManager : MonoBehaviour
     }
     #endregion
 }
-
-
