@@ -66,6 +66,29 @@ public class Unit : MonoBehaviour
         unitState = _state;
         CheckAnimation(_state);
     }
+    public void SetUnitInfo(Unit _unit)
+    {
+        this.thumbnail = _unit.thumbnail;
+        this.unitState = _unit.unitState;
+        this.unitType = _unit.unitType;
+        this.elemental = _unit.elemental;
+        this.profession = _unit.profession;
+
+        this.skill = _unit.skill;
+
+        this.level = _unit.level;
+        this.maxHp = _unit.maxHp;
+        this.currentHp = _unit.currentHp;
+        this.attackPoint = _unit.attackPoint;
+        this.moveSpeed = _unit.moveSpeed;
+        this.attackRange = _unit.attackRange;
+        this.attackDelay = _unit.attackDelay;
+
+        this.animator = _unit.animator;
+
+        this.GetComponentInChildren<SpriteRenderer>().sprite = _unit.GetComponentInChildren<SpriteRenderer>().sprite;
+        this.GetComponentInChildren<Animator>().runtimeAnimatorController = _unit.GetComponentInChildren<Animator>().runtimeAnimatorController;
+    }
     #endregion
     #region Unity Life Cycle
     private void Start()
@@ -204,6 +227,8 @@ public class Unit : MonoBehaviour
     public void CheckAnimation(UnitState _unitState)
     {
         Debug.Log($"{this.name}의 상태를  {_unitState}로 변경");
+        if (!isActiveAndEnabled)
+            return;
         switch (_unitState)
         {
             case UnitState.Idle:

@@ -63,34 +63,38 @@ public class StageManager : MonoBehaviour
     }
     private void Init()
     {
-        for (int i = 0; i < characterArray.Length; i++)
+        textTime.text = limitTime.ToString();
+        stageState = StageState.Play;
+    }
+    public void SetStage(int _index)
+    {
+        for(int i = 0; i < DataBase.Instance.characterArray.Length; i++)
         {
-            if (characterArray[i] != null)
+            if(DataBase.Instance.characterArray[i] != null)
             {
-                charactersMaxHp += characterArray[i].GetMaxHp();
+                characterArray[i].SetUnitInfo(DataBase.Instance.characterArray[i]);
+                characterArray[i].gameObject.SetActive(true);
                 SkillButtons[i].SetUnit(characterArray[i]);
+                charactersMaxHp += characterArray[i].GetMaxHp();
             }
         }
         charactersCurrentHp = charactersMaxHp;
 
-        for (int i = 0; i < enemyArray.Length; i++)
+        for(int i = 0; i < DataBase.Instance.stageInfoArray[_index].enemyArray.Length; i++)
         {
-            if (enemyArray[i] != null)
+            if (DataBase.Instance.stageInfoArray[_index].enemyArray[i] != null)
+            {
+                enemyArray[i].SetUnitInfo(DataBase.Instance.stageInfoArray[_index].enemyArray[i]);
+                enemyArray[i].gameObject.SetActive(true);
                 enemysMaxHp += enemyArray[i].GetMaxHp();
+            }
         }
         enemysCurrentHp = enemysMaxHp;
 
-        stageState = StageState.Play;
-        textTime.text = limitTime.ToString();
-    }
-    public void SetStage(StageInfo _stageInfo)
-    {
-        characterArray = DataBase.Instance.characterArray;
-        enemyArray = _stageInfo.enemyArray;
-        limitTime = _stageInfo.limitTime;
-
+        limitTime = DataBase.Instance.stageInfoArray[_index].limitTime;
         Init();
     }
+
     public Unit ChangeTarget(Unit _unit)
     {
         Unit target = null;
@@ -102,7 +106,7 @@ public class StageManager : MonoBehaviour
                 {
                     for (int i = 0; i < enemyArray.Length; i++)
                     {
-                        if (enemyArray[i] != null && enemyArray[i].GetUnitState() != UnitState.Death)
+                        if (enemyArray[i].gameObject.activeSelf && enemyArray[i].GetUnitState() != UnitState.Death)
                         {
                             float currentDistance = (_unit.transform.localPosition - enemyArray[i].transform.localPosition).sqrMagnitude;
                             if (minDistance >= currentDistance)
@@ -118,7 +122,7 @@ public class StageManager : MonoBehaviour
                 {
                     for (int i = 0; i < characterArray.Length; i++)
                     {
-                        if(characterArray[i] != null && characterArray[i].GetUnitState() != UnitState.Death)
+                        if(characterArray[i].gameObject.activeSelf && characterArray[i].GetUnitState() != UnitState.Death)
                         {
                             float currentDistance = (_unit.transform.localPosition - characterArray[i].transform.localPosition).sqrMagnitude;
                             if (minDistance >= currentDistance)

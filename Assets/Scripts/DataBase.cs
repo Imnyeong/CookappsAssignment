@@ -9,6 +9,7 @@ public class DataBase : MonoBehaviour
     [Header("Unit Information")]
     public Unit[] characterArray;
     public StageInfo[] stageInfoArray;
+    [SerializeField] private int index;
 
     void Start()
     {
@@ -20,6 +21,6 @@ public class DataBase : MonoBehaviour
     }
     public void SetStage()
     {
-        StageManager.Instance.SetStage(stageInfoArray[0]);
+        StageManager.Instance.SetStage(index);
     }
 }
