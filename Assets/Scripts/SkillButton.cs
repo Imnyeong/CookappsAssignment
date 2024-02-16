@@ -16,7 +16,7 @@ public class SkillButton : Button
     }
     public void DoSkill()
     {
-        if (unit == null)
+        if (unit == null || StageManager.Instance.GetStageState() != StageState.Play)
             return;
         unit.DoSkill();
 

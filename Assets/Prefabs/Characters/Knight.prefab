@@ -412,7 +412,7 @@ MonoBehaviour:
   unitType: 0
   elemental: 0
   profession: 0
-  skill: {fileID: 8366163739735580754, guid: 5173f4846c33f084c9037f67391fd1d1, type: 3}
+  skill: {fileID: 8366163739735580754, guid: 3b88001be3d19f84785847b48004bebe, type: 3}
   level: 0
   maxHp: 100
   currentHp: 0

@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
 
     [Header("Skill")]
     [SerializeField] private Skill skill;
+    [SerializeField] private Text skillLine;
 
     [Header("Unit Status")]
     [SerializeField] private int level;
@@ -79,6 +80,7 @@ public class Unit : MonoBehaviour
         this.profession = _unit.profession;
 
         this.skill = _unit.skill;
+        this.skillLine.text = _unit.skill.line;
 
         this.level = _unit.level;
         this.maxHp = _unit.maxHp;
@@ -92,6 +94,7 @@ public class Unit : MonoBehaviour
 
         this.GetComponentInChildren<SpriteRenderer>().sprite = _unit.GetComponentInChildren<SpriteRenderer>().sprite;
         this.GetComponentInChildren<Animator>().runtimeAnimatorController = _unit.GetComponentInChildren<Animator>().runtimeAnimatorController;
+        this.animator = this.GetComponentInChildren<Animator>();
     }
     #endregion
     #region Unity Life Cycle
@@ -161,18 +164,26 @@ public class Unit : MonoBehaviour
     }
     public void DoHeal(Unit _target, float _skillValue)
     {
-        if (_target.GetUnitState() == UnitState.Death)
+        if (_target == null)
             return;
     
-        _target.currentHp += _skillValue;
+        if(_target.currentHp + _skillValue > _target.maxHp)
+        {
+            _target.currentHp = _target.maxHp;
+        }
+        else
+        {
+            _target.currentHp += _skillValue;
+        }
         _target.hpBar.value = _target.currentHp / _target.maxHp;
         StageManager.Instance.CheckTeamHP(_target, _skillValue * -1.0f);
     }
     public void DoSkill()
     {
-        if (unitState != UnitState.Idle)
+        if (this.unitState != UnitState.Idle)
             return;
 
+        StartCoroutine(SkillLine());
         switch (this.skill.skillType)
         {
             case SkillType.Attack:
@@ -182,7 +193,6 @@ public class Unit : MonoBehaviour
                 }
             case SkillType.Heal:
                 {
-                    //GetDamaged(StageManager.Instance.FindLowHP(this.unitType), this.skill.value * -1.0f);
                     DoHeal(StageManager.Instance.FindLowHP(this.unitType), this.skill.value);
                     break;
                 }
@@ -215,7 +225,6 @@ public class Unit : MonoBehaviour
     }
     public void GetDamaged(Unit _target, float _skillValue)
     {
-        Debug.Log($"{skill.line}");
         float currentDamage = _target.currentHp < _skillValue ? _target.currentHp : _skillValue;
 
         _target.currentHp -= currentDamage;
@@ -231,7 +240,7 @@ public class Unit : MonoBehaviour
     #region Animation
     public void CheckAnimation(UnitState _unitState)
     {
-        Debug.Log($"{this.name}의 상태를  {_unitState}로 변경");
+        //Debug.Log($"{this.name}의 상태를  {_unitState}로 변경");
         if (!isActiveAndEnabled)
             return;
         switch (_unitState)
@@ -257,6 +266,13 @@ public class Unit : MonoBehaviour
                     break;
                 }
         }
+    }
+    public IEnumerator SkillLine()
+    {
+        skillLine.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.0f);
+        skillLine.gameObject.SetActive(false);
+        StopCoroutine(SkillLine());
     }
     #endregion
 }

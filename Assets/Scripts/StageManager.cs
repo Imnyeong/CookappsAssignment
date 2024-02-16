@@ -186,19 +186,20 @@ public class StageManager : MonoBehaviour
     public Unit FindLowHP(UnitType _unitType)
     {
         Unit target = null;
+        float minHp = float.MaxValue;
+
         switch (_unitType)
         {
             case UnitType.Character:
                 {
-                    float defaultHp = float.MaxValue;
-
                     for (int i = 0; i < characterArray.Length; i++)
                     {
-                        if(characterArray[i] != null)
+                        if(characterArray[i].gameObject.activeSelf && characterArray[i].GetUnitState() != UnitState.Death)
                         {
-                            if (characterArray[i].GetCurrentHp() < defaultHp)
+                            if (characterArray[i].GetCurrentHp() < minHp)
                             {
                                 target = characterArray[i];
+                                minHp = characterArray[i].GetCurrentHp();
                             }
                         }
                     }
@@ -206,15 +207,14 @@ public class StageManager : MonoBehaviour
                 }
             case UnitType.Enemy:
                 {
-                    float defaultHp = enemyArray[0].GetCurrentHp();
-
                     for (int i = 0; i < enemyArray.Length; i++)
                     {
-                        if(enemyArray[i] != null)
+                        if(enemyArray[i].gameObject.activeSelf && enemyArray[i].GetUnitState() != UnitState.Death)
                         {
-                            if (enemyArray[i].GetCurrentHp() < defaultHp)
+                            if (enemyArray[i].GetCurrentHp() < minHp)
                             {
                                 target = enemyArray[i];
+                                minHp = enemyArray[i].GetCurrentHp();
                             }
                         }
                     }
