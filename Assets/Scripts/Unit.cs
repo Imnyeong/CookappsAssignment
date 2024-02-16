@@ -182,8 +182,10 @@ public class Unit : MonoBehaviour
     {
         if (this.unitState != UnitState.Idle)
             return;
-
+        
+        SetUnitState(UnitState.Skill);
         StartCoroutine(SkillLine());
+
         switch (this.skill.skillType)
         {
             case SkillType.Attack:
@@ -260,6 +262,11 @@ public class Unit : MonoBehaviour
                     animator.SetTrigger("Attack");
                     break;
                 }
+            case UnitState.Skill:
+                {
+                    animator.SetTrigger("Skill");
+                    break;
+                }
             case UnitState.Death:
                 {
                     animator.SetTrigger("Death");
@@ -272,6 +279,7 @@ public class Unit : MonoBehaviour
         skillLine.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(1.0f);
         skillLine.gameObject.SetActive(false);
+
         StopCoroutine(SkillLine());
     }
     #endregion
