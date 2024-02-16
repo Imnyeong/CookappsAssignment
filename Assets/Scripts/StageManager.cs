@@ -44,7 +44,7 @@ public class StageManager : MonoBehaviour
             Instance = this;
         }
         stageState = StageState.Ready;
-        //SetStage();
+        Init();
     }
     private void Update()
     {
@@ -87,6 +87,7 @@ public class StageManager : MonoBehaviour
     {
         characterArray = DataBase.Instance.characterArray;
         enemyArray = _stageInfo.enemyArray;
+        limitTime = _stageInfo.limitTime;
 
         Init();
     }

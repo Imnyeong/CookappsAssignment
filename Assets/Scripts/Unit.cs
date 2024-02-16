@@ -84,6 +84,7 @@ public class Unit : MonoBehaviour
         {
             if(CheckRange())
             {
+                SetUnitState(UnitState.Idle);
                 AttackTimer();
             }
             else
@@ -111,7 +112,6 @@ public class Unit : MonoBehaviour
     }
     public void AttackTimer()
     {
-        SetUnitState(UnitState.Attack);
         attackTimer += Time.deltaTime;
 
         if (attackTimer >= attackDelay)
@@ -129,6 +129,7 @@ public class Unit : MonoBehaviour
     }
     public void DoAttack()
     {
+        SetUnitState(UnitState.Attack);
         GetDamaged(currentTarget);
     }
     public void DoHeal(Unit _target, float _skillValue)
@@ -142,7 +143,7 @@ public class Unit : MonoBehaviour
     }
     public void DoSkill()
     {
-        if (unitState != UnitState.Attack)
+        if (unitState != UnitState.Idle)
             return;
 
         switch (this.skill.skillType)
