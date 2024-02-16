@@ -46,12 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   limitTime: 100
   enemyArray:
-  - {fileID: 236437513989646732, guid: 9aa49d408737a834bb55cb56af3fadb7, type: 3}
   - {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
   - {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
+  - {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7328676721792773521, guid: 68d9487b6721a4f45ae7ce43356621e7, type: 3}
   - {fileID: 0}
   - {fileID: 0}

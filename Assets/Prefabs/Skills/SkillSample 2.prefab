@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &842093552064835565
+--- !u!1 &4424109803341451291
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 402258918282876741}
-  - component: {fileID: 6211986049613256398}
-  m_Layer: 0
-  m_Name: Stage_2
+  - component: {fileID: 1822876708103873251}
+  - component: {fileID: 8366163739735580754}
+  m_Layer: 5
+  m_Name: SkillSample 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &402258918282876741
-Transform:
+--- !u!224 &1822876708103873251
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 842093552064835565}
+  m_GameObject: {fileID: 4424109803341451291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.250131, y: 2.9488115, z: 89787.914}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6211986049613256398
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8366163739735580754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 842093552064835565}
+  m_GameObject: {fileID: 4424109803341451291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae0ef76b39384c74ab28e52b16359f85, type: 3}
+  m_Script: {fileID: 11500000, guid: dd4f7137ef2ae944f8a10775814b3958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitTime: 100
-  enemyArray:
-  - {fileID: 236437513989646732, guid: 9aa49d408737a834bb55cb56af3fadb7, type: 3}
-  - {fileID: 0}
-  - {fileID: 236437513989646732, guid: 58dd015284259f640a23717cce2591af, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 7328676721792773521, guid: 68d9487b6721a4f45ae7ce43356621e7, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
+  skillType: 2
+  value: 0
+  coolDown: 5
+  line: "\uC0B4\uB824\uC904\uAC8C"

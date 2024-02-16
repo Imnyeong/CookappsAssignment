@@ -217,9 +217,18 @@ public class Unit : MonoBehaviour
                 }
             case SkillType.Special:
                 {
+                    ChangePosition(StageManager.Instance.FindLowHP(this.unitType));
                     break;
                 }
         }
+    }
+    public void ChangePosition(Unit _unit)
+    {
+        Vector3 tmpTransform;
+        
+        tmpTransform = this.GetComponent<RectTransform>().localPosition;
+        this.GetComponent<RectTransform>().localPosition = _unit.GetComponent<RectTransform>().localPosition;
+        _unit.GetComponent<RectTransform>().localPosition = tmpTransform;
     }
     #endregion
     #region Interaction

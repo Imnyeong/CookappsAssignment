@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8291192590679856250
 RectTransform:
   m_ObjectHideFlags: 0
@@ -134,17 +134,17 @@ MonoBehaviour:
   thumbnail: {fileID: 4723107735738678597, guid: e3277ee2a32c48208a86797ff386c4c8, type: 3}
   unitState: 0
   unitType: 0
-  elemental: 0
-  profession: 0
-  skill: {fileID: 8366163739735580754, guid: 5173f4846c33f084c9037f67391fd1d1, type: 3}
+  elemental: 1
+  profession: 2
+  skill: {fileID: 8366163739735580754, guid: 3b88001be3d19f84785847b48004bebe, type: 3}
   skillLine: {fileID: 8400883688955455106}
   level: 0
-  maxHp: 100
+  maxHp: 60
   currentHp: 0
-  attackPoint: 10
-  moveSpeed: 0.1
-  attackRange: 10000
-  attackDelay: 2
+  attackPoint: 50
+  moveSpeed: 2
+  attackRange: 100000
+  attackDelay: 3
   hpBar: {fileID: 6727959291237561236}
   currentTarget: {fileID: 0}
   animator: {fileID: 2907661285237022588}
@@ -252,7 +252,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
