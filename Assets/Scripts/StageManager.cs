@@ -44,7 +44,7 @@ public class StageManager : MonoBehaviour
             Instance = this;
         }
         stageState = StageState.Ready;
-        Init();
+        //Init();
     }
     private void Update()
     {

@@ -58,6 +58,10 @@ public class Unit : MonoBehaviour
     {
         return thumbnail;
     }
+    public Skill GetSkill()
+    {
+        return skill;
+    }
     public void SetUnitState(UnitState _state)
     {
         if (unitState == _state)
@@ -211,6 +215,7 @@ public class Unit : MonoBehaviour
     }
     public void GetDamaged(Unit _target, float _skillValue)
     {
+        Debug.Log($"{skill.line}");
         float currentDamage = _target.currentHp < _skillValue ? _target.currentHp : _skillValue;
 
         _target.currentHp -= currentDamage;
