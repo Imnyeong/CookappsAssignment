@@ -173,10 +173,12 @@ public class StageManager : MonoBehaviour
     }
     public void RetryStage()
     {
+        GameManager.Instance.audioManager.clickEffectSound();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void BackToLobby()
     {
+        GameManager.Instance.audioManager.clickEffectSound();
         GameManager.Instance.ClearData();
         GameManager.Instance.sceneType = SceneType.Lobby;
         GameManager.Instance.audioManager.playLobbyBGM();
