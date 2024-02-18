@@ -40,3 +40,29 @@ public enum StageState
     Defeat
 }
 #endregion
+#region Lobby
+public enum LobbyState
+{
+    Intro,
+    StageSelect,
+    CharacterSelect,
+    PositionSelect
+}
+#endregion
+#region Scene
+public enum SceneType
+{
+    Lobby,
+    InGame,
+}
+#endregion
+public enum PositionState
+{
+    Unselected,
+    Selected
+}
+public enum SelectState
+{
+    Unselected,
+    Selected
+}

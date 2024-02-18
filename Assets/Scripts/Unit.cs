@@ -79,9 +79,11 @@ public class Unit : MonoBehaviour
         this.elemental = _unit.elemental;
         this.profession = _unit.profession;
 
-        this.skill = _unit.skill;
-        this.skillLine.text = _unit.skill.line;
-
+        if (_unit.skill != null)
+        {
+            this.skill = _unit.skill;
+            this.skillLine.text = _unit.skill.line;
+        }
         this.level = _unit.level;
         this.maxHp = _unit.maxHp;
         this.currentHp = _unit.currentHp;
@@ -101,8 +103,12 @@ public class Unit : MonoBehaviour
     private void Start()
     {
         currentHp = maxHp;
-        SetUnitState(UnitState.Idle);
-        StartCoroutine(TargetTimer());
+        
+        if (GameManager.Instance.sceneType != SceneType.Lobby)
+        {
+            SetUnitState(UnitState.Idle);
+            StartCoroutine(TargetTimer());
+        }
     }
     private void FixedUpdate()
     {
