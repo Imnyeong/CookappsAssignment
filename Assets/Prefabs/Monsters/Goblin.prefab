@@ -403,11 +403,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thumbnail: {fileID: 4723107735738678597, guid: 8c8013b63c1e48b3bc93020529662be8, type: 3}
-  deathMotion: {fileID: 3156895337291164288, guid: 8c8013b63c1e48b3bc93020529662be8, type: 3}
   unitState: 0
   unitType: 1
   elemental: 0
-  profession: 0
+  profession: 1
   skill: {fileID: 0}
   skillLine: {fileID: 0}
   level: 0

@@ -440,7 +440,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thumbnail: {fileID: 5546671543968653177, guid: 8bbf92adb71a4713a5775ef3ceb58266, type: 3}
-  deathMotion: {fileID: 3740191742173349062, guid: 8bbf92adb71a4713a5775ef3ceb58266, type: 3}
   unitState: 0
   unitType: 0
   elemental: 0
@@ -452,7 +451,7 @@ MonoBehaviour:
   currentHp: 0
   attackPoint: 20
   moveSpeed: 0.8
-  attackRange: 10000
+  attackRange: 11000
   attackDelay: 4
   spriteRenderer: {fileID: 3977974968431664180}
   hpBar: {fileID: 8913664485589362683}
