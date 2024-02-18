@@ -50,6 +50,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillType: 1
-  value: 10
+  value: 25
   coolDown: 6
   line: "\uD790"
