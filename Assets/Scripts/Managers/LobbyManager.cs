@@ -79,9 +79,9 @@ public class LobbyManager : MonoBehaviour
     }
     public void OnClickStageButton(int _index)
     {
+        GameManager.Instance.audioManager.clickEffectSound();
         GameManager.Instance.SetStageIndex(_index);
         SetStage(_index);
-
         ChangeLobbyState(LobbyState.CharacterSelect);
     }
     #endregion

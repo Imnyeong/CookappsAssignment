@@ -57,6 +57,7 @@ public class StageManager : MonoBehaviour
     #region Stage
     public void SetStage(int _index)
     {
+        GameManager.Instance.audioManager.playStageBGM();
         for (int i = 0; i < GameManager.Instance.characterArray.Length; i++)
         {
             if (GameManager.Instance.characterArray[i] != null)

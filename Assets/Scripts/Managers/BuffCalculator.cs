@@ -8,7 +8,6 @@ public class BuffCalculator : MonoBehaviour
     private List<Tuple<Elemental, int>> elementalTupleList;
     private List<Tuple<Profession, int>> professionTupleList;
 
-
     [Header("User")]
     [SerializeField] private List<ElementalIcon> elementalIcons;
     [SerializeField] private List<ProfessionIcon> professionIcons;

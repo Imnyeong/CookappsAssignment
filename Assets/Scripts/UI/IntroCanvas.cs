@@ -14,8 +14,13 @@ public class IntroCanvas : MonoBehaviour
 
         startButton.onClick.AddListener(delegate
         {
+            GameManager.Instance.audioManager.clickEffectSound();
             SceneManager.LoadScene("Lobby");
         });
-        exitButton.onClick.AddListener(delegate { Application.Quit(); });
+        exitButton.onClick.AddListener(delegate 
+        {
+            GameManager.Instance.audioManager.clickEffectSound();
+            Application.Quit();
+        });
     }
 }

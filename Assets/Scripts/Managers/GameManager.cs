@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     private int index;
     public SceneType sceneType;
 
+    [Header("AudioManager")]
+    public AudioManager audioManager;
+
     #region Get or Set
     public void SetStageIndex(int _index)
     {

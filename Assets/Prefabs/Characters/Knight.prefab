@@ -418,7 +418,7 @@ MonoBehaviour:
   maxHp: 100
   currentHp: 0
   attackPoint: 10
-  moveSpeed: 2
+  moveSpeed: 1.2
   attackRange: 10000
   attackDelay: 2
   hpBar: {fileID: 1175397981436236202}

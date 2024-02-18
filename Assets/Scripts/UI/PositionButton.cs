@@ -22,6 +22,7 @@ public class PositionButton : Button
     }
     public void OnClickPosition(int _index)
     {
+        GameManager.Instance.audioManager.clickEffectSound();
         if (positionState == PositionState.Unselected)
         {
             if (LobbyManager.Instance.GetSelectedButton() == null)

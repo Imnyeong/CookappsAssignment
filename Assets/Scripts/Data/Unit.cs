@@ -250,6 +250,7 @@ public class Unit : MonoBehaviour
     }
     public void GetDamaged(Unit _target)
     {
+        GameManager.Instance.audioManager.playEffect(this.gameObject.name);
         float currentDamage = _target.currentHp < this.attackPoint ? _target.currentHp : this.attackPoint;
 
         _target.currentHp -= currentDamage;

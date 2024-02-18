@@ -16,6 +16,7 @@ public class SelectCanvas : MonoBehaviour
     #region Interaction
     public void DoStart()
     {
+        GameManager.Instance.audioManager.clickEffectSound();
         int characterCount = 0;
         for(int i = 0; i < GameManager.Instance.characterArray.Length; i++)
         {

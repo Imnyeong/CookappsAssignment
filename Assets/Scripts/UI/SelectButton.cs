@@ -12,6 +12,7 @@ public class SelectButton : Button
     #region Interaction
     public void OnClickCharacter()
     {
+        GameManager.Instance.audioManager.clickEffectSound();
         if (selectState == SelectState.Unselected)
         {
             if (LobbyManager.Instance.GetSelectedButton() != null)
