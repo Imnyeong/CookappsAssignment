@@ -103,16 +103,13 @@ public class Unit : MonoBehaviour
     private void Start()
     {
         currentHp = maxHp;
-        
-        if (GameManager.Instance.sceneType != SceneType.Lobby)
-        {
-            SetUnitState(UnitState.Idle);
-            StartCoroutine(TargetTimer());
-        }
+
+        SetUnitState(UnitState.Idle);
+        StartCoroutine(TargetTimer());
     }
     private void FixedUpdate()
     {
-        if (currentHp == 0.0f)
+        if(currentHp <= 0.0f)
         {
             StopAllCoroutines();
             SetUnitState(UnitState.Death);
@@ -122,9 +119,10 @@ public class Unit : MonoBehaviour
     #region Timer
     private IEnumerator TargetTimer()
     {
-        if ((StageManager.Instance.GetStageState() != StageState.Play) || unitState == UnitState.Death)
+        if (StageManager.Instance.GetStageState() != StageState.Play || unitState == UnitState.Death)
         {
             StopAllCoroutines();
+            yield return null;
         }
 
         currentTarget = StageManager.Instance.ChangeTarget(this);
@@ -273,6 +271,10 @@ public class Unit : MonoBehaviour
         //Debug.Log($"{this.name}의 상태를  {_unitState}로 변경");
         if (!isActiveAndEnabled)
             return;
+
+        if (unitState == UnitState.Death && _unitState != UnitState.Death)
+            return;
+
         switch (_unitState)
         {
             case UnitState.Idle:
@@ -298,6 +300,7 @@ public class Unit : MonoBehaviour
             case UnitState.Death:
                 {
                     animator.SetTrigger("Death");
+                    GetComponent<CapsuleCollider2D>().enabled = false;
                     break;
                 }
         }
