@@ -128,7 +128,8 @@ public class Unit : MonoBehaviour
     #region Timer
     private IEnumerator TargetTimer()
     {
-        if (StageManager.Instance.GetStageState() != StageState.Play || unitState == UnitState.Death)
+        //if (StageManager.Instance.GetStageState() != StageState.Play || unitState == UnitState.Death)
+        if (unitState == UnitState.Death)
         {
             StopAllCoroutines();
             yield return null;
@@ -173,13 +174,16 @@ public class Unit : MonoBehaviour
         else
         {
             usingSkill = true;
+            skillLine.gameObject.SetActive(false);
             StopCoroutine(AttackTimer());
+            
             DoSkill();
             if (currentTarget.GetUnitState() != UnitState.Death)
             {
                 yield return new WaitForSecondsRealtime(skillDelay);
             }
             usingSkill = false;
+            skillLine.gameObject.SetActive(false);
             StopCoroutine(SkillTimer());
         }
     }
@@ -194,6 +198,7 @@ public class Unit : MonoBehaviour
     {
         SetUnitState(UnitState.Attack);
         GetDamaged(currentTarget);
+        GameManager.Instance.audioManager.playEffect(this.gameObject.name);
     }
     public void DoHeal(Unit _target, float _skillValue)
     {
@@ -214,7 +219,8 @@ public class Unit : MonoBehaviour
     public void DoSkill()
     {
         SetUnitState(UnitState.Skill);
-        StartCoroutine(SkillLine());
+        skillLine.gameObject.SetActive(true);
+        GameManager.Instance.audioManager.SkillEffectSound();
 
         switch (this.skill.skillType)
         {
@@ -235,6 +241,16 @@ public class Unit : MonoBehaviour
                 }
         }
     }
+    public void DoDeath()
+    {
+        StopAllCoroutines();
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        StageManager.Instance.CheckTeamHP(this, 0.0f);
+        if (this.unitType == UnitType.Character && this.skill != null)
+        {
+            StageManager.Instance.DisableSkill(this);
+        }
+    }
     public void ChangePosition(Unit _unit)
     {
         Vector3 tmpTransform;
@@ -251,7 +267,6 @@ public class Unit : MonoBehaviour
     }
     public void GetDamaged(Unit _target)
     {
-        GameManager.Instance.audioManager.playEffect(this.gameObject.name);
         float currentDamage = _target.currentHp < this.attackPoint ? _target.currentHp : this.attackPoint;
 
         _target.currentHp -= currentDamage;
@@ -272,7 +287,6 @@ public class Unit : MonoBehaviour
     public void OnClickSkill()
     {
         StartCoroutine(SkillTimer());
-        StartCoroutine(SkillLine());
     }
     #endregion
     #region Animation
@@ -310,18 +324,10 @@ public class Unit : MonoBehaviour
             case UnitState.Death:
                 {
                     animator.SetTrigger("Death");
-                    GetComponent<CapsuleCollider2D>().enabled = false;
+                    DoDeath();
                     break;
                 }
         }
-    }
-    public IEnumerator SkillLine()
-    {
-        skillLine.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(1.0f);
-        skillLine.gameObject.SetActive(false);
-
-        StopCoroutine(SkillLine());
     }
     #endregion
 }

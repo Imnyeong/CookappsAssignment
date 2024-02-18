@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip axe;
     [SerializeField] private AudioClip staff;
     [SerializeField] private AudioClip enemy;
+    [SerializeField] private AudioClip skill;
 
     private void Start()
     {
@@ -38,7 +39,7 @@ public class AudioManager : MonoBehaviour
             bgmSource.clip = null;
 
         bgmSource.clip = stageBGM;
-        bgmSource.volume = 0.5f;
+        bgmSource.volume = 1.0f;
         bgmSource.Play();
     }
 
@@ -47,16 +48,19 @@ public class AudioManager : MonoBehaviour
         switch(_name)
         {
             case "Knight":
+            case "Goblin":
             {
                 swordEffectSound();
                 break;
             }
             case "Viking":
+            case "Orc":
             {
                 axeEffectSound();
                 break;
             }
             case "WhiteWizard":
+            case "GoblinArcher":
             {
                 staffEffectSound();
                 break;
@@ -123,5 +127,16 @@ public class AudioManager : MonoBehaviour
         }
         effectSources[4].clip = enemy;
         effectSources[4].Play();
+    }
+    public void SkillEffectSound()
+    {
+        if (effectSources[5].isPlaying)
+            effectSources[5].Stop();
+        if (effectSources[5].clip != null)
+        {
+            effectSources[5].clip = null;
+        }
+        effectSources[5].clip = skill;
+        effectSources[5].Play();
     }
 }

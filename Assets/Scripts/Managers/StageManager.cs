@@ -166,6 +166,7 @@ public class StageManager : MonoBehaviour
     {
         GameManager.Instance.ClearData();
         GameManager.Instance.sceneType = SceneType.Lobby;
+        GameManager.Instance.audioManager.playLobbyBGM();
         SceneManager.LoadScene("Lobby");
     }
     #endregion
@@ -251,6 +252,14 @@ public class StageManager : MonoBehaviour
                 }
         }
         return target;
+    }
+    public void DisableSkill(Unit _unit)
+    {
+        int index = Array.IndexOf(characterArray, _unit);
+        if(_unit.GetSkill() != null)
+        {
+            SkillButtons[index].gameObject.SetActive(false);
+        }
     }
     #endregion
 }
