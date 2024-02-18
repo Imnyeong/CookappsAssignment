@@ -22,7 +22,6 @@ public class AudioManager : MonoBehaviour
     {
         playLobbyBGM();
     }
-
     public void playLobbyBGM()
     {
         if (bgmSource.clip != null)
@@ -32,7 +31,6 @@ public class AudioManager : MonoBehaviour
         bgmSource.volume = 0.5f;
         bgmSource.Play();
     }
-
     public void playStageBGM()
     {
         if (bgmSource.clip != null)
@@ -42,7 +40,6 @@ public class AudioManager : MonoBehaviour
         bgmSource.volume = 1.0f;
         bgmSource.Play();
     }
-
     public void playEffect(string _name)
     {
         switch(_name)

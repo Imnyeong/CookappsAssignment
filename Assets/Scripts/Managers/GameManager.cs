@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetResolution();
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         DontDestroyOnLoad(this);
         if (Instance == null)
         {
