@@ -81,6 +81,7 @@ public class Unit : MonoBehaviour
     }
     public void SetUnitInfo(Unit _unit)
     {
+        this.gameObject.name = _unit.gameObject.name;
         this.thumbnail = _unit.thumbnail;
         this.unitState = _unit.unitState;
         this.unitType = _unit.unitType;
