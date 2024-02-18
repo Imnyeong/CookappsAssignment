@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class IntroCanvas : MonoBehaviour
@@ -11,7 +12,10 @@ public class IntroCanvas : MonoBehaviour
         startButton.onClick.RemoveAllListeners();
         exitButton.onClick.RemoveAllListeners();
 
-        startButton.onClick.AddListener(delegate { LobbyManager.Instance.ChangeLobbyState(LobbyState.StageSelect); });
+        startButton.onClick.AddListener(delegate
+        {
+            SceneManager.LoadScene("Lobby");
+        });
         exitButton.onClick.AddListener(delegate { Application.Quit(); });
     }
 }

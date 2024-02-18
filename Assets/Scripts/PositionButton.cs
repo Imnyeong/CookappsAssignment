@@ -5,8 +5,6 @@ public class PositionButton : Button
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private PositionState positionState;
-    
-    private Unit unit;
 
     private void Start()
     {
@@ -19,8 +17,6 @@ public class PositionButton : Button
     }
     public void SetUnit(Unit _unit)
     {
-        unit = _unit;
-
         if (_unit != null)
         {
             spriteRenderer.sprite = _unit.GetThumbnail();

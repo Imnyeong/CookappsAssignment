@@ -13,7 +13,16 @@ public class SelectCanvas : MonoBehaviour
 
     public void DoStart()
     {
+        int characterCount = 0;
+        for(int i = 0; i < GameManager.Instance.characterArray.Length; i++)
+        {
+            if (GameManager.Instance.characterArray[i] != null)
+                characterCount++;
+        }
+        if (characterCount == 0)
+            return;
+
         GameManager.Instance.sceneType = SceneType.InGame;
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene("Stage");
     }
 }

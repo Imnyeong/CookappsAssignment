@@ -8,7 +8,6 @@ public class LobbyManager : MonoBehaviour
     public static LobbyManager Instance;
 
     [Header("Canvas")]
-    [SerializeField] private GameObject IntroCanvas;
     [SerializeField] private GameObject stageCanvas;
     [SerializeField] private GameObject characterCanvas;
 
@@ -29,7 +28,7 @@ public class LobbyManager : MonoBehaviour
         {
             Instance = this;
         }
-        lobbyState = LobbyState.Intro;
+        lobbyState = LobbyState.StageSelect;
         selectedUnit = null;
     }
 
@@ -37,7 +36,6 @@ public class LobbyManager : MonoBehaviour
     {
         if (lobbyState != _lobbyState)
         {
-            IntroCanvas.SetActive(_lobbyState == LobbyState.Intro);
             stageCanvas.SetActive(_lobbyState == LobbyState.StageSelect);
             characterCanvas.SetActive(_lobbyState == LobbyState.CharacterSelect);
         }

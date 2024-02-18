@@ -23,6 +23,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Slider charactersHpBar;
     [SerializeField] private Slider enemysHpBar;
     [SerializeField] private SkillButton[] SkillButtons;
+    [SerializeField] private GameObject gameEndPopup;
+    [SerializeField] private Text gameEndText;
 
     private float charactersMaxHp;
     private float charactersCurrentHp;
@@ -131,21 +133,22 @@ public class StageManager : MonoBehaviour
     }
     public void SetStageState(StageState _stageState)
     {
-        switch(_stageState)
+        switch (_stageState)
         {
             case StageState.Clear:
                 {
                     stageState = StageState.Clear;
-                    Debug.Log("Clear");
+                    gameEndText.text = "전투 승리";
                     break;
                 }
             case StageState.Defeat:
                 {
                     stageState = StageState.Defeat;
-                    Debug.Log("Defeat");
+                    gameEndText.text = "전투 패배";
                     break;
                 }
         }
+        gameEndPopup.SetActive(true);
     }
     #endregion
     #region Unit

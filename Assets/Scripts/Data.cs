@@ -43,7 +43,6 @@ public enum StageState
 #region Lobby
 public enum LobbyState
 {
-    Intro,
     StageSelect,
     CharacterSelect
 }

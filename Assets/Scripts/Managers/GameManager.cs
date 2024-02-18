@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //sceneType = SceneType.Lobby;
         DontDestroyOnLoad(this);
         if (Instance == null)
         {
@@ -25,8 +24,12 @@ public class GameManager : MonoBehaviour
     {
         index = _index;
     }
-    //public void SetStage()
-    //{
-    //    StageManager.Instance.SetStage(index);
-    //}
+
+    public void ClearData()
+    {
+        for (int i = 0; i < characterArray.Length; i++)
+        {
+            characterArray[i] = null;
+        }
+    }
 }
