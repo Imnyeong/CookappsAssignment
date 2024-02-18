@@ -31,7 +31,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 111766786714673759}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -108,7 +108,7 @@ RectTransform:
   - {fileID: 1696226562775971431}
   - {fileID: 6366975269169278665}
   m_Father: {fileID: 5377421016359278520}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -196,7 +196,7 @@ RectTransform:
   m_Children:
   - {fileID: 803064250226874213}
   m_Father: {fileID: 111766786714673759}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -234,7 +234,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6366975269169278665}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -310,7 +310,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5377421016359278520}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3977974968431664180
 SpriteRenderer:
@@ -353,7 +353,7 @@ SpriteRenderer:
   m_SortingLayerID: 1635461969
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 5546671543968653177, guid: 8bbf92adb71a4713a5775ef3ceb58266, type: 3}
+  m_Sprite: {fileID: 3740191742173349062, guid: 8bbf92adb71a4713a5775ef3ceb58266, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -420,7 +420,7 @@ RectTransform:
   - {fileID: 1958446749075367663}
   - {fileID: 111766786714673759}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -440,6 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thumbnail: {fileID: 5546671543968653177, guid: 8bbf92adb71a4713a5775ef3ceb58266, type: 3}
+  deathMotion: {fileID: 3740191742173349062, guid: 8bbf92adb71a4713a5775ef3ceb58266, type: 3}
   unitState: 0
   unitType: 0
   elemental: 0
@@ -453,6 +454,7 @@ MonoBehaviour:
   moveSpeed: 0.8
   attackRange: 10000
   attackDelay: 4
+  spriteRenderer: {fileID: 3977974968431664180}
   hpBar: {fileID: 8913664485589362683}
   currentTarget: {fileID: 0}
   animator: {fileID: 5012564535415181503}
@@ -474,25 +476,6 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -516,12 +499,6 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

@@ -109,14 +109,19 @@ public class StageManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(oneSec);
         StartCoroutine(StageTimer());
     }
-    public void CheckTeamHP(Unit _target, float _damage)
+    public void CheckTeamHP(Unit _target)
     {
         switch (_target.GetUnitType())
         {
             case UnitType.Character:
                 {
-                    charactersCurrentHp -= _damage;
+                    //charactersCurrentHp -= _damage;
+                    charactersCurrentHp = 0;
                     //Debug.Log($"유저 팀 남은 체력 {charactersCurrentHp}");
+                    for(int i = 0; i < characterArray.Length; i++)
+                    {
+                        charactersCurrentHp += characterArray[i].GetCurrentHp();
+                    }
                     charactersHpBar.value = charactersCurrentHp <= 0.0f ? 0.0f : charactersCurrentHp / charactersMaxHp;
                     if(charactersCurrentHp <= 0)
                     {
@@ -127,8 +132,16 @@ public class StageManager : MonoBehaviour
                 }
             case UnitType.Enemy:
                 {
-                    enemysCurrentHp -= _damage;
+                    //enemysCurrentHp -= _damage;
+                    enemysCurrentHp = 0;
                     //Debug.Log($"상대 팀 남은 체력 {enemysCurrentHp}");
+
+                    for (int i = 0; i < enemyArray.Length; i++)
+                    {
+                        enemysCurrentHp += enemyArray[i].GetCurrentHp();
+                    }
+
+
                     enemysHpBar.value = enemysCurrentHp <= 0.0f ? 0.0f : enemysCurrentHp / enemysMaxHp;
                     if (enemysCurrentHp <= 0)
                     {
