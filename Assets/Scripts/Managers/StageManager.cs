@@ -45,6 +45,7 @@ public class StageManager : MonoBehaviour
             Instance = this;
         }
         stageState = StageState.Ready;
+        SetStage(GameManager.Instance.index);
     }
     #endregion
     #region Stage

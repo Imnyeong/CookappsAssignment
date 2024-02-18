@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
     {
         index = _index;
     }
-    public void SetStage()
-    {
-        StageManager.Instance.SetStage(index);
-    }
+    //public void SetStage()
+    //{
+    //    StageManager.Instance.SetStage(index);
+    //}
 }

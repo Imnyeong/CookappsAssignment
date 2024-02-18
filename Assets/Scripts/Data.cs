@@ -45,8 +45,7 @@ public enum LobbyState
 {
     Intro,
     StageSelect,
-    CharacterSelect,
-    PositionSelect
+    CharacterSelect
 }
 #endregion
 #region Scene

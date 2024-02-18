@@ -129,7 +129,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 180}
+  m_SizeDelta: {x: 180, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5210409075487559016
 MonoBehaviour:
@@ -220,6 +220,7 @@ MonoBehaviour:
   unit: {fileID: 0}
   spriteRenderer: {fileID: 1212301135172844655}
   block: {fileID: 16284751260751471}
+  selectState: 0
 --- !u!222 &6744937270950903632
 CanvasRenderer:
   m_ObjectHideFlags: 0

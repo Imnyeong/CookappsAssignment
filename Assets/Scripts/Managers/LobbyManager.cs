@@ -16,7 +16,7 @@ public class LobbyManager : MonoBehaviour
     [SerializeField] private Button[] StageButtons;
 
     [Header("Unit Information")]
-    [SerializeField] private Unit[] enemyArray;
+    [SerializeField] private SpriteRenderer[] enemyArray;
 
     private LobbyState lobbyState;
     [SerializeField] private Unit selectedUnit;
@@ -35,9 +35,12 @@ public class LobbyManager : MonoBehaviour
 
     public void ChangeLobbyState(LobbyState _lobbyState)
     {
-        IntroCanvas.SetActive(_lobbyState == LobbyState.Intro);
-        stageCanvas.SetActive(_lobbyState == LobbyState.StageSelect);
-        characterCanvas.SetActive(_lobbyState == LobbyState.CharacterSelect || _lobbyState == LobbyState.PositionSelect);
+        if (lobbyState != _lobbyState)
+        {
+            IntroCanvas.SetActive(_lobbyState == LobbyState.Intro);
+            stageCanvas.SetActive(_lobbyState == LobbyState.StageSelect);
+            characterCanvas.SetActive(_lobbyState == LobbyState.CharacterSelect);
+        }
     }
 
     public void OnClickStageButton(int _index)
@@ -54,7 +57,7 @@ public class LobbyManager : MonoBehaviour
         {
             if (GameManager.Instance.stageInfoArray[_index].enemyArray[i] != null)
             {
-                enemyArray[i].SetUnitInfo(GameManager.Instance.stageInfoArray[_index].enemyArray[i]);
+                enemyArray[i].sprite = GameManager.Instance.stageInfoArray[_index].enemyArray[i].GetThumbnail();
                 enemyArray[i].gameObject.SetActive(true);
             }
         }

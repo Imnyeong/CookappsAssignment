@@ -4,8 +4,10 @@ using UnityEngine.UI;
 public class PositionButton : Button
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
-    private Unit unit;
     [SerializeField] private PositionState positionState;
+    
+    private Unit unit;
+
     private void Start()
     {
         ChangeState(PositionState.Unselected);
