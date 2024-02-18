@@ -51,7 +51,7 @@ public class StageManager : MonoBehaviour
             Instance = this;
         }
         stageState = StageState.Ready;
-        SetStage(GameManager.Instance.index);
+        SetStage(GameManager.Instance.GetStageIndex());
     }
     #endregion
     #region Stage
@@ -80,7 +80,8 @@ public class StageManager : MonoBehaviour
         }
         enemysCurrentHp = enemysMaxHp;
 
-        buffCalculator.CheckBuff();
+        buffCalculator.CheckBuff(UnitType.Character);
+        buffCalculator.CheckBuff(UnitType.Enemy);
 
         limitTime = GameManager.Instance.stageInfoArray[_index].limitTime;
         Init();

@@ -9,13 +9,6 @@ public class SelectButton : Button
 
     [SerializeField] private SelectState selectState;
 
-    #region Unity Life Cycle
-    private void Start()
-    {
-        selectState = SelectState.Unselected;
-        spriteRenderer.sprite = unit.GetThumbnail();
-    }
-    #endregion
     #region Interaction
     public void OnClickCharacter()
     {

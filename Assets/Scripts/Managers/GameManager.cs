@@ -8,13 +8,17 @@ public class GameManager : MonoBehaviour
     [Header("Unit Information")]
     public Unit[] characterArray;
     public StageInfo[] stageInfoArray;
-    public int index;
+    private int index;
     public SceneType sceneType;
 
     #region Get or Set
     public void SetStageIndex(int _index)
     {
         index = _index;
+    }
+    public int GetStageIndex()
+    {
+        return index;
     }
     #endregion
     #region Unity Life Cycle

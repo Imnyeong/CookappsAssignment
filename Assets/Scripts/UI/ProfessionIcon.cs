@@ -7,6 +7,7 @@ public class ProfessionIcon : MonoBehaviour
     [SerializeField] private Text buffName;
     [SerializeField] private Text count;
 
+    #region Get or Set
     public Profession GetProfession()
     {
         return profession;
@@ -34,4 +35,5 @@ public class ProfessionIcon : MonoBehaviour
         count.text = _count.ToString();
         this.gameObject.SetActive(true);
     }
+    #endregion
 }

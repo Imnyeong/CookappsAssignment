@@ -7,6 +7,7 @@ public class ElementalIcon : MonoBehaviour
     [SerializeField] private Text buffName;
     [SerializeField] private Text count;
 
+    #region Get or Set
     public Elemental GetElemental()
     {
         return elemental;
@@ -34,4 +35,5 @@ public class ElementalIcon : MonoBehaviour
         count.text = _count.ToString();
         this.gameObject.SetActive(true);
     }
+    #endregion Get or Set
 }

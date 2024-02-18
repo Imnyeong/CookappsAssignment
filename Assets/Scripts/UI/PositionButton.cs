@@ -6,12 +6,6 @@ public class PositionButton : Button
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private PositionState positionState;
 
-    #region Unity Life Cycle
-    private void Start()
-    {
-        ChangeState(PositionState.Unselected);
-    }
-    #endregion
     #region Interaction
     public void ChangeState(PositionState _positionState)
     {
