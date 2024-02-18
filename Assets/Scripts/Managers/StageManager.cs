@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
 public class StageManager : MonoBehaviour
 {
@@ -26,6 +26,9 @@ public class StageManager : MonoBehaviour
     [SerializeField] private SkillButton[] SkillButtons;
     [SerializeField] private GameObject gameEndPopup;
     [SerializeField] private Text gameEndText;
+
+    [Header("UI")]
+    [SerializeField] private BuffCalculator buffCalculator;
 
     private float charactersMaxHp;
     private float charactersCurrentHp;
@@ -76,6 +79,8 @@ public class StageManager : MonoBehaviour
             }
         }
         enemysCurrentHp = enemysMaxHp;
+
+        buffCalculator.CheckBuff();
 
         limitTime = GameManager.Instance.stageInfoArray[_index].limitTime;
         Init();

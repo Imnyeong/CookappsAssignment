@@ -50,6 +50,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillType: 0
-  value: 5
+  value: 10
   coolDown: 2
-  line: "\uC73C\uB77C\uCC28\uCC28"
+  line: "\uC384\uAC8C \uB54C\uB9AC\uAE30"

@@ -43,6 +43,14 @@ public class Unit : MonoBehaviour
     {
         return this.unitType;
     }
+    public Elemental GetUnitElemental()
+    {
+        return this.elemental;
+    }
+    public Profession GetProfession()
+    {
+        return this.profession;
+    }
     public UnitState GetUnitState()
     {
         return this.unitState;
