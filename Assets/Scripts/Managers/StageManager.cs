@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageManager : MonoBehaviour
@@ -149,6 +150,16 @@ public class StageManager : MonoBehaviour
                 }
         }
         gameEndPopup.SetActive(true);
+    }
+    public void RetryStage()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void BackToLobby()
+    {
+        GameManager.Instance.ClearData();
+        GameManager.Instance.sceneType = SceneType.Lobby;
+        SceneManager.LoadScene("Lobby");
     }
     #endregion
     #region Unit

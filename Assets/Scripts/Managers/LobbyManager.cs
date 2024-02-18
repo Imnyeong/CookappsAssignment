@@ -21,34 +21,7 @@ public class LobbyManager : MonoBehaviour
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private SelectButton selectedButton;
 
-
-    private void Start()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        lobbyState = LobbyState.StageSelect;
-        selectedUnit = null;
-    }
-
-    public void ChangeLobbyState(LobbyState _lobbyState)
-    {
-        if (lobbyState != _lobbyState)
-        {
-            stageCanvas.SetActive(_lobbyState == LobbyState.StageSelect);
-            characterCanvas.SetActive(_lobbyState == LobbyState.CharacterSelect);
-        }
-    }
-
-    public void OnClickStageButton(int _index)
-    {
-        GameManager.Instance.SetStageIndex(_index);
-        SetStage(_index);
-
-        ChangeLobbyState(LobbyState.CharacterSelect);
-    }
-
+    #region Get or Set
     public void SetStage(int _index)
     {
         for (int i = 0; i < GameManager.Instance.stageInfoArray[_index].enemyArray.Length; i++)
@@ -60,7 +33,6 @@ public class LobbyManager : MonoBehaviour
             }
         }
     }
-
     public void SelectCharacter(Unit _unit)
     {
         selectedUnit = _unit;
@@ -79,9 +51,38 @@ public class LobbyManager : MonoBehaviour
     }
     public void UnSelectCharacter()
     {
-        if(selectedButton != null)
+        if (selectedButton != null)
         {
             selectedButton.UnSelect();
         }
     }
+    #endregion
+    #region Unity Life Cycle
+    private void Start()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        lobbyState = LobbyState.StageSelect;
+        selectedUnit = null;
+    }
+    #endregion
+    #region Interaction
+    public void ChangeLobbyState(LobbyState _lobbyState)
+    {
+        if (lobbyState != _lobbyState)
+        {
+            stageCanvas.SetActive(_lobbyState == LobbyState.StageSelect);
+            characterCanvas.SetActive(_lobbyState == LobbyState.CharacterSelect);
+        }
+    }
+    public void OnClickStageButton(int _index)
+    {
+        GameManager.Instance.SetStageIndex(_index);
+        SetStage(_index);
+
+        ChangeLobbyState(LobbyState.CharacterSelect);
+    }
+    #endregion
 }

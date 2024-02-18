@@ -12,6 +12,13 @@ public class GameManager : MonoBehaviour
     public int index;
     public SceneType sceneType;
 
+    #region Get or Set
+    public void SetStageIndex(int _index)
+    {
+        index = _index;
+    }
+    #endregion
+    #region Unity Life Cycle
     void Start()
     {
         SetResolution();
@@ -21,10 +28,8 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
-    public void SetStageIndex(int _index)
-    {
-        index = _index;
-    }
+    #endregion
+    #region Data
 
     public void ClearData()
     {
@@ -33,6 +38,8 @@ public class GameManager : MonoBehaviour
             characterArray[i] = null;
         }
     }
+    #endregion
+    #region Setting
     public void SetResolution()
     {
         int setWidth = 1920;
@@ -54,4 +61,5 @@ public class GameManager : MonoBehaviour
             Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight);
         }
     }
+    #endregion
 }

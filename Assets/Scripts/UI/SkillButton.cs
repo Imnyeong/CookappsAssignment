@@ -8,16 +8,19 @@ public class SkillButton : Button
     private Unit unit;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private GameObject block;
+
+    #region Get or Set
     public void SetUnit(Unit _unit)
     {
         unit = _unit;
         spriteRenderer.sprite = _unit.GetThumbnail();
         this.gameObject.SetActive(_unit != null);
     }
+    #endregion
+    #region Interaction
     public void DoSkill()
     {
         if (unit == null || StageManager.Instance.GetStageState() != StageState.Play ||
-            //!((unit.GetUnitState() == UnitState.Idle) || (unit.GetUnitState() == UnitState.Attack)))
             ((unit.GetUnitState() == UnitState.Death) || (unit.GetUnitState() == UnitState.Skill)))
             return;
 
@@ -34,4 +37,5 @@ public class SkillButton : Button
         this.interactable = true;
         block.SetActive(false);
     }
+    #endregion
 }

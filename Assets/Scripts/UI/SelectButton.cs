@@ -8,12 +8,15 @@ public class SelectButton : Button
     [SerializeField] private GameObject block;
 
     [SerializeField] private SelectState selectState;
+
+    #region Unity Life Cycle
     private void Start()
     {
         selectState = SelectState.Unselected;
         spriteRenderer.sprite = unit.GetThumbnail();
     }
-
+    #endregion
+    #region Interaction
     public void OnClickCharacter()
     {
         if (selectState == SelectState.Unselected)
@@ -34,7 +37,6 @@ public class SelectButton : Button
         }
         block.gameObject.SetActive(selectState == SelectState.Selected);
     }
-
     public void UnSelect()
     {
         selectState = SelectState.Unselected;
@@ -42,4 +44,5 @@ public class SelectButton : Button
         LobbyManager.Instance.SelectedButton(null);
         block.gameObject.SetActive(selectState == SelectState.Selected);
     }
+    #endregion
 }

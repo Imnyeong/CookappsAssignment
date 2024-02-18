@@ -5,12 +5,15 @@ using UnityEngine.UI;
 public class SelectCanvas : MonoBehaviour
 {
     [SerializeField] private Button startButton;
+
+    #region Unity Life Cycle
     private void Start()
     {
         startButton.onClick.RemoveAllListeners();
         startButton.onClick.AddListener(DoStart);
     }
-
+    #endregion
+    #region Interaction
     public void DoStart()
     {
         int characterCount = 0;
@@ -25,4 +28,5 @@ public class SelectCanvas : MonoBehaviour
         GameManager.Instance.sceneType = SceneType.InGame;
         SceneManager.LoadScene("Stage");
     }
+    #endregion
 }
